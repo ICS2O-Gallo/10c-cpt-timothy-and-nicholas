@@ -1,21 +1,37 @@
 import arcade
-
+import random
 
 WIDTH = 1600
 HEIGHT = 960
 
+# Loading Textures
+title_text = arcade.load_texture('title.png', 0, 0, 505, 150)
+background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
+bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
+plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
+
+bird_pos = [
+    [1200, 800],
+    [1300, 720],
+    [1050, 670]
+]
+bird_shift_y = 0
+bird_down = False
+bird_up = True
 x_background = WIDTH / 2
 scroll_left = True
 scroll_right = False
 
-# Loading Textures
-# title = arcade.load_texture('title.png', 0, 0, 800, 268)
-background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
-bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
-bird_pos = [[1200, 700], [1300, 720], [1100, 670]]
-bird_shift_y = 0
-bird_down = False
-bird_up = True
+plane_x = 300
+plane_y = HEIGHT / 2
+plane_up = True
+plane_down = False
+
+background_repetitions = 1
+
+frame_time = 0
+
+main_menu = True
 
 
 def setup():
@@ -34,14 +50,19 @@ def setup():
 
 
 def update(delta_time):
-    pass
+    global frame_time
+    if main_menu:
+        frame_time += 1
 
 
 def on_draw():
     arcade.start_render()
 
     draw_background()
+    title_plane()
     birds()
+    title()
+
 
 def on_key_press(key, modifiers):
     pass
@@ -62,17 +83,9 @@ def draw_background():
 
     arcade.draw_texture_rectangle(x_background, HEIGHT / 2, WIDTH, HEIGHT, background)
     arcade.draw_texture_rectangle(x_background + WIDTH, HEIGHT / 2, WIDTH, HEIGHT, background)
-    arcade.draw_texture_rectangle(x_background - WIDTH, HEIGHT / 2, WIDTH, HEIGHT, background)
-    if x_background == -1600:
-        scroll_right = True
-        scroll_left = False
-    elif x_background == 3200:
-        scroll_left = True
-        scroll_right = False
-    if scroll_right:
-        x_background += 0.5
-    elif scroll_left:
-        x_background -= 0.5
+    x_background -= 0.5
+    if x_background == -800:
+        x_background = 800
 
 
 def birds():
@@ -92,6 +105,29 @@ def birds():
         bird_shift_y += 0.5
     if bird_down:
         bird_shift_y -= 0.5
+
+
+def title_plane():
+    global plane_y
+    global plane_up
+    global plane_down
+    arcade.draw_texture_rectangle(plane_x, plane_y, 100, 100, plane)
+    if frame_time % 60 == 0:
+        if random.randint(0, 1) == 1:
+            plane_down = True
+            plane_up = False
+        else:
+            plane_up = True
+            plane_down = False
+    if plane_down and plane_y > 53:
+        plane_y -= 2
+    elif plane_up and plane_y < HEIGHT - 53:
+        plane_y += 2
+
+
+def title():
+    arcade.draw_texture_rectangle(WIDTH / 2, 500, 800, 268, title_text)
+
 
 if __name__ == '__main__':
     setup()
