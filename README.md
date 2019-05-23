@@ -3,11 +3,11 @@ Plane Game - Nicholas and Tim
 
 # To-Do:
 
-● Add button with new font
+     ● Add button with new font
 
-● Make button launch "plane game in starry knight"
+     ● Make button launch "plane game in starry knight"
 
-● Make final version of game
+     ● Make final version of game
 
      ● Objects
      
