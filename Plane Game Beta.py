@@ -5,9 +5,8 @@ WIDTH = 1600
 HEIGHT = 1200
 
 # Loading Textures
-title = arcade.load_texture('title.png', 0, 0, 800, 268)
-background = arcade.load_texture('title screen background', 0, 0, 1600, 1200)
-
+# title = arcade.load_texture('title.png', 0, 0, 800, 268)
+background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
 
 
 def setup():
@@ -31,6 +30,7 @@ def update(delta_time):
 
 def on_draw():
     arcade.start_render()
+    background()
 
 
 def on_key_press(key, modifiers):
@@ -44,8 +44,11 @@ def on_key_release(key, modifiers):
 def on_mouse_press(x, y, button, modifiers):
     pass
 
+
 def background():
-    
+    x_background = WIDTH / 2
+    arcade.draw_texture_rectangle(x_background, HEIGHT / 2, WIDTH, HEIGHT, background)
+    arcade.draw_texture_rectangle(x_background + WIDTH, HEIGHT / 2, WIDTH, HEIGHT, background)
 
 
 if __name__ == '__main__':
