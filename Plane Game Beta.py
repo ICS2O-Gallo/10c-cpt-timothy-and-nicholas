@@ -4,12 +4,19 @@ import arcade
 WIDTH = 1600
 HEIGHT = 960
 
-# Loading Textures
-# title = arcade.load_texture('title.png', 0, 0, 800, 268)
-background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
 x_background = WIDTH / 2
 scroll_left = True
 scroll_right = False
+
+# Loading Textures
+# title = arcade.load_texture('title.png', 0, 0, 800, 268)
+background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
+bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
+bird_pos = [[1200, 700], [1300, 720], [1100, 670]]
+bird_shift_y = 0
+bird_down = False
+bird_up = True
+
 
 def setup():
     arcade.open_window(WIDTH, HEIGHT, "Plane Game Pre-pree-reee")
@@ -34,7 +41,7 @@ def on_draw():
     arcade.start_render()
 
     draw_background()
-
+    birds()
 
 def on_key_press(key, modifiers):
     pass
@@ -68,6 +75,23 @@ def draw_background():
         x_background -= 0.5
 
 
+def birds():
+    global bird_pos
+    global bird_shift_y
+    global bird_down
+    global bird_up
+    for i in range(3):
+        arcade.draw_texture_rectangle(bird_pos[i][0], bird_pos[i][1] + bird_shift_y, 100, 100, bird)
+    if bird_shift_y == 20:
+        bird_down = True
+        bird_up = False
+    elif bird_shift_y == -20:
+        bird_down = False
+        bird_up = True
+    if bird_up:
+        bird_shift_y += 0.5
+    if bird_down:
+        bird_shift_y -= 0.5
 
 if __name__ == '__main__':
     setup()
