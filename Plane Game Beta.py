@@ -9,7 +9,9 @@ title_text = arcade.load_texture('title.png', 0, 0, 505, 150)
 background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
 bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
 plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
+start = arcade.load_texture('start.png', 0, 0, 250, 90)
 
+# Global Variables -----------------------------------------------------------------------------------------------------
 bird_pos = [
     [1200, 800],
     [1400, 720],
@@ -37,7 +39,7 @@ main_menu = True
 def setup():
     arcade.open_window(WIDTH, HEIGHT, "Plane Game Pre-pree-reee")
     arcade.set_background_color(arcade.color.WHITE)
-    arcade.schedule(update, 1/60)
+    arcade.schedule(update, 1 / 60)
 
     # Override arcade window methods
     window = arcade.get_window()
@@ -46,7 +48,7 @@ def setup():
     window.on_key_release = on_key_release
     window.on_mouse_press = on_mouse_press
     window.on_mouse_release = on_mouse_release
-    
+
     arcade.run()
 
 
@@ -63,7 +65,8 @@ def on_draw():
     title_plane()
     birds()
     title()
-    draw_start_button()
+    draw_button(800, 360, 300, 70, arcade.color.GREEN, start)
+
 
 def on_key_press(key, modifiers):
     pass
@@ -76,11 +79,13 @@ def on_key_release(key, modifiers):
 def on_mouse_press(x, y, button, modifiers):
     pass
 
+
 def on_mouse_release(x, y, button, modifiers):
     if x > 700 and x < 900 and y < 450 and y > 350:
-        # start game
-    pass
-    
+    # start game
+        pass
+
+
 def draw_background(scroll_speed):
     global x_background
     global scroll_left
@@ -140,9 +145,10 @@ def title():
     arcade.draw_texture_rectangle(WIDTH / 2, 500, 800, 268, title_text)
 
 
-def draw_start_button():
-    arcade.draw_rectangle_filled(800, 400, 200, 50, arcade.color.GREEN)
-    arcade.draw_text('Start', 785, 395, arcade.color.BLACK) # Change font size and style
+def draw_button(x, y, width, height, colour, texture):
+    arcade.draw_rectangle_filled(x, y, width, height, colour)
+    arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
+
 
 if __name__ == '__main__':
     setup()
