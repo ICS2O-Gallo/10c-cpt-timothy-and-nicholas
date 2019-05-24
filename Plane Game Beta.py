@@ -1,5 +1,6 @@
 import arcade
 import random
+from playsound import playsound
 
 WIDTH = 1600
 HEIGHT = 960
@@ -58,7 +59,7 @@ def update(delta_time):
 def on_draw():
     arcade.start_render()
 
-    draw_background()
+    draw_background(0.5)
     title_plane()
     birds()
     title()
@@ -76,16 +77,17 @@ def on_mouse_press(x, y, button, modifiers):
     pass
 
 
-def draw_background():
+def draw_background(scroll_speed):
     global x_background
     global scroll_left
     global scroll_right
 
     arcade.draw_texture_rectangle(x_background, HEIGHT / 2, WIDTH, HEIGHT, background)
     arcade.draw_texture_rectangle(x_background + WIDTH, HEIGHT / 2, WIDTH, HEIGHT, background)
-    x_background -= 0.5
+    x_background -= scroll_speed
     if x_background == -800:
         x_background = 800
+    playsound('menu music.mp3', False)
 
 
 def birds():
