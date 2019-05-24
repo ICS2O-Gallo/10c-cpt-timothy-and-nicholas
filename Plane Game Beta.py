@@ -87,7 +87,6 @@ def draw_background(scroll_speed):
     x_background -= scroll_speed
     if x_background == -800:
         x_background = 800
-    playsound('menu music.mp3', False)
 
 
 def birds():
@@ -125,6 +124,12 @@ def title_plane():
         plane_y -= 2
     elif plane_up and plane_y < HEIGHT - 53:
         plane_y += 2
+    if plane_y > HEIGHT - 53:
+        plane_down = True
+        plane_up = False
+    elif plane_y < 53:
+        plane_down = False
+        plane_up = True
 
 
 def title():
