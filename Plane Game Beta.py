@@ -150,5 +150,7 @@ def draw_button(x, y, width, height, colour, texture):
     arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
 
 
+def button_detect(x, y, width, height, colour_default, colour_hover, colour_press):
+    
 if __name__ == '__main__':
     setup()
