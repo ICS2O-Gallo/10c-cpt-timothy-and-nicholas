@@ -1,7 +1,22 @@
 # CPT
 Plane Game - Nicholas and Tim
 
-# Welcome to our game!
+# To-Do:
 
-We're trying our best here, but if you somehow stumbled across this, that's kinda cool i guess
+     ● Add button with new font
 
+     ● Make button launch "plane game in starry knight"
+
+     ● Make final version of game
+
+     ● Objects
+     
+     ● Non-Volitile stats from users (high scores, coins, upgrades, unlocks)
+     
+     ● Shop menu 
+     
+     ● High scores menu
+     
+     ● Different levels
+     
+     ● Good background nature music if possible

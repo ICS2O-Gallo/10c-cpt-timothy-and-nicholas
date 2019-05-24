@@ -6,7 +6,7 @@ HEIGHT = 960
 
 # Loading Textures
 title_text = arcade.load_texture('title.png', 0, 0, 505, 150)
-background = arcade.load_texture('title screen background.jpg', 0, 0, 1600, 1200)
+background = arcade.load_texture('title screen background - Copy.jpg', 0, 0, 3194, 1200)
 bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
 plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
 start = arcade.load_texture('start.png', 0, 0, 250, 90)
@@ -39,6 +39,7 @@ main_menu = True
 mouse_press = False
 mouse_release = False
 pressed = False
+
 
 def setup():
     arcade.open_window(WIDTH, HEIGHT, "Plane Game Pre-pree-reee")
@@ -91,7 +92,6 @@ def on_mouse_release(x, y, button, modifiers):
     global mouse_press
     if button == arcade.MOUSE_BUTTON_LEFT:
         mouse_press = False
-
 
 
 def on_mouse_motion(x, y, dx, dy):
