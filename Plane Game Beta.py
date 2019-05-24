@@ -12,8 +12,8 @@ plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
 
 bird_pos = [
     [1200, 800],
-    [1300, 720],
-    [1050, 670]
+    [1400, 720],
+    [1100, 670]
 ]
 bird_shift_y = 0
 bird_down = False
@@ -93,7 +93,7 @@ def birds():
     global bird_shift_y
     global bird_down
     global bird_up
-    for i in range(3):
+    for i in range(len(bird_pos)):
         arcade.draw_texture_rectangle(bird_pos[i][0], bird_pos[i][1] + bird_shift_y, 100, 100, bird)
     if bird_shift_y == 20:
         bird_down = True
