@@ -30,11 +30,13 @@ plane_up = True
 plane_down = False
 
 background_repetitions = 1
+mouse_x = 0
+mouse_y = 0
 
 frame_time = 0
 
 main_menu = True
-
+mouse_press = False
 
 def setup():
     arcade.open_window(WIDTH, HEIGHT, "Plane Game Pre-pree-reee")
@@ -65,7 +67,7 @@ def on_draw():
     title_plane()
     birds()
     title()
-    draw_button(800, 360, 300, 70, arcade.color.GREEN, start)
+    draw_button(800, 360, 300, 70, arcade.color.GREEN, start, arcade.color.DARK_GREEN, arcade.color.FOREST_GREEN)
 
 
 def on_key_press(key, modifiers):
@@ -77,12 +79,18 @@ def on_key_release(key, modifiers):
 
 
 def on_mouse_press(x, y, button, modifiers):
-    pass
+    global mouse_x
+    global mouse_y
+    global mouse_press
+    mouse_x = x
+    mouse_y = y
+    if button == arcade.MOUSE_BUTTON_LEFT:
+        mouse_press = True
 
 
 def on_mouse_release(x, y, button, modifiers):
     if x > 700 and x < 900 and y < 450 and y > 350:
-    # start game
+        # start game
         pass
 
 
@@ -145,12 +153,15 @@ def title():
     arcade.draw_texture_rectangle(WIDTH / 2, 500, 800, 268, title_text)
 
 
-def draw_button(x, y, width, height, colour, texture):
-    arcade.draw_rectangle_filled(x, y, width, height, colour)
+def draw_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
+    if mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (height / 2) and mouse_press:
+        colour_default = colour_press
+    elif mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (height / 2):
+        colour_default = colour_hover
+    arcade.draw_rectangle_filled(x, y, width, height, colour_default)
     arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
 
 
-def button_detect(x, y, width, height, colour_default, colour_hover, colour_press):
-    
+
 if __name__ == '__main__':
     setup()
