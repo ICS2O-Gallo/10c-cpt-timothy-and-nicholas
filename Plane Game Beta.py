@@ -45,7 +45,8 @@ def setup():
     window.on_key_press = on_key_press
     window.on_key_release = on_key_release
     window.on_mouse_press = on_mouse_press
-
+    window.on_mouse_release = on_mouse_release
+    
     arcade.run()
 
 
@@ -62,7 +63,7 @@ def on_draw():
     title_plane()
     birds()
     title()
-
+    draw_start_button()
 
 def on_key_press(key, modifiers):
     pass
@@ -75,7 +76,11 @@ def on_key_release(key, modifiers):
 def on_mouse_press(x, y, button, modifiers):
     pass
 
-
+def on_mouse_release(x, y, button, modifiers):
+    if x > 700 and x < 900 and y < 450 and y > 350:
+        # start game
+    pass
+    
 def draw_background(scroll_speed):
     global x_background
     global scroll_left
@@ -134,6 +139,10 @@ def title_plane():
 def title():
     arcade.draw_texture_rectangle(WIDTH / 2, 500, 800, 268, title_text)
 
+
+def draw_start_button():
+    arcade.draw_rectangle_filled(800, 400, 200, 50, arcade.color.GREEN)
+    arcade.draw_text('Start', 785, 395, arcade.color.BLACK) # Change font size and style
 
 if __name__ == '__main__':
     setup()
