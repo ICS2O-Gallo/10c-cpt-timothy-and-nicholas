@@ -1,6 +1,5 @@
 import arcade
 import random
-from playsound import playsound
 
 WIDTH = 1600
 HEIGHT = 960
