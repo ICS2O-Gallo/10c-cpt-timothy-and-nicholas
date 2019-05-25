@@ -1,5 +1,6 @@
 import arcade
 import random
+import Plane_Game_In_Starry_Night as starry
 
 WIDTH = 1600
 HEIGHT = 960
@@ -93,7 +94,9 @@ def on_mouse_release(x, y, button, modifiers):
     global mouse_press
     if button == arcade.MOUSE_BUTTON_LEFT:
         mouse_press = False
-        
+        start_click = True
+        arcade.close_window()
+        starry.setup()
         
 
 def on_mouse_motion(x, y, dx, dy):
