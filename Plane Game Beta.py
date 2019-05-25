@@ -35,6 +35,7 @@ mouse_y = 0
 
 frame_time = 0
 
+start_click = False
 main_menu = True
 mouse_press = False
 mouse_release = False
@@ -92,7 +93,8 @@ def on_mouse_release(x, y, button, modifiers):
     global mouse_press
     if button == arcade.MOUSE_BUTTON_LEFT:
         mouse_press = False
-
+        
+        
 
 def on_mouse_motion(x, y, dx, dy):
     global mouse_x
