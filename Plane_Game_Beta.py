@@ -11,6 +11,8 @@ background = arcade.load_texture('title screen background - Copy.jpg', 0, 0, 319
 bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
 plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
 start = arcade.load_texture('start.png', 0, 0, 250, 90)
+highscores = arcade.load_texture('scores.png', 0, 0, 244, 204)
+shop = arcade.load_texture('shop.png', 0, 0, 520, 459)
 
 # Global Variables -----------------------------------------------------------------------------------------------------
 
@@ -98,16 +100,15 @@ def on_draw():
         birds()
         title()
         draw_button(813, 360, 300, 70, arcade.color.GREEN, start, arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
-        draw_shop_button(1078, 360, 150, 70, arcade.color.GREEN, start, arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
-        draw_high_scores_button(535, 360, 150, 70, arcade.color.GREEN, start, arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
+        draw_shop_button(1078, 360, 150, 70, arcade.color.DARK_CYAN, shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
+        draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK, highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
     else:
         plane_game_draw()
 
 
 def on_key_press(key, modifiers):
     if not main_menu:
-        global keydown
-        global keyup
+        global keyup, keydown
         if key == arcade.key.DOWN:
             keydown = True
         if key == arcade.key.UP:
@@ -116,8 +117,7 @@ def on_key_press(key, modifiers):
 
 def on_key_release(key, modifiers):
     if not main_menu:
-        global keyup
-        global keydown
+        global keyup, keydown
         if key == arcade.key.DOWN:
             keydown = False
         if key == arcade.key.UP:
@@ -137,16 +137,13 @@ def on_mouse_release(x, y, button, modifiers):
 
 
 def on_mouse_motion(x, y, dx, dy):
-    global mouse_x
-    global mouse_y
+    global mouse_x, mouse_y
     mouse_x = x
     mouse_y = y
 
 
 def draw_background(scroll_speed):
-    global x_background
-    global scroll_left
-    global scroll_right
+    global x_background, scroll_left, scroll_right
 
     arcade.draw_texture_rectangle(x_background, HEIGHT / 2, WIDTH, HEIGHT, background)
     arcade.draw_texture_rectangle(x_background + WIDTH, HEIGHT / 2, WIDTH, HEIGHT, background)
@@ -156,12 +153,9 @@ def draw_background(scroll_speed):
 
 
 def birds():
-    global bird_pos
-    global bird_shift_y
-    global bird_down
-    global bird_up
-    for i in range(len(bird_pos)):
-        arcade.draw_texture_rectangle(bird_pos[i][0], bird_pos[i][1] + bird_shift_y, 100, 100, bird)
+    global bird_pos, bird_shift_y, bird_down, bird_up
+    for pos in range(len(bird_pos)):
+        arcade.draw_texture_rectangle(bird_pos[pos][0], bird_pos[pos][1] + bird_shift_y, 100, 100, bird)
     if bird_shift_y == 20:
         bird_down = True
         bird_up = False
@@ -175,9 +169,7 @@ def birds():
 
 
 def title_plane():
-    global plane_y
-    global plane_up
-    global plane_down
+    global plane_y, plane_up, plane_down
     arcade.draw_texture_rectangle(plane_x, plane_y, 100, 100, plane)
     if frame_time % 60 == 0:
         if random.randint(0, 1) == 1:
@@ -204,12 +196,18 @@ def title():
 
 def draw_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
     global pressed
-    if mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (
-            height / 2) and mouse_press:
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_press)
         pressed = True
-    elif mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (
-            height / 2) and not mouse_press:
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if pressed:
             game_start()
@@ -222,36 +220,48 @@ def draw_button(x, y, width, height, colour_default, texture, colour_hover, colo
 
 def draw_shop_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
     global shop_pressed
-    if mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (
-            height / 2) and mouse_press:
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_press)
         shop_pressed = True
-    elif mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (
-            height / 2) and not mouse_press:
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if shop_pressed:
             shop_pressed = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         shop_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
+    arcade.draw_texture_rectangle(x, y + 5, width, height * 1.15, texture)
 
 
 def draw_high_scores_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
     global high_scores_pressed
-    if mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (
-            height / 2) and mouse_press:
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_press)
         high_scores_pressed = True
-    elif mouse_x > x - (width / 2) and mouse_x < x + (width / 2) and mouse_y < y + (height / 2) and mouse_y > y - (
-            height / 2) and not mouse_press:
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if high_scores_pressed:
             high_scores_pressed = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         high_scores_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
+    arcade.draw_texture_rectangle(x, y - 3, width, height * 1.15, texture)
 
 
 def plane_game_draw():
@@ -264,16 +274,8 @@ def plane_game_draw():
 
 
 def plane_game_logic():
-    global game_y_plane
-    global boom
-    global game_frametime, speed
-    global main_menu
-    global star_y_positions
-    global star_x_positions
-    global keyup
-    global keydown
-    global game_x
-    global game_y
+    global game_y_plane, boom, game_frametime, speed, main_menu
+    global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions
     game_frametime += 1
     for x_range in range(len(star_x_positions)):
         star_x_positions[x_range] -= speed
