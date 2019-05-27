@@ -1,6 +1,5 @@
 import arcade
 import random
-import Plane_Game_In_Starry_Night as starry
 
 WIDTH = 1600
 HEIGHT = 960
@@ -42,6 +41,22 @@ mouse_press = False
 mouse_release = False
 pressed = False
 
+# Game Variables -------------------------------------------------------------------------
+
+star_x_positions = []
+star_y_positions = []
+game_y_plane = HEIGHT / 2
+keydown = False
+keyup = False
+boom = False
+game_frametime = 0
+SPEED = 4
+for i in range(10):
+    game_x = random.randrange(WIDTH / 2, WIDTH * 2)
+    game_y = random.randrange(HEIGHT)
+    star_x_positions.append(game_x)
+    star_y_positions.append(game_y)
+
 
 def setup():
     arcade.open_window(WIDTH, HEIGHT, "Plane Game Pre-pree-reee")
@@ -64,24 +79,40 @@ def update(delta_time):
     global frame_time
     if main_menu:
         frame_time += 1
+    else:
+        plane_game_logic()
 
 
 def on_draw():
     arcade.start_render()
-
-    draw_background(0.5)
-    title_plane()
-    birds()
-    title()
-    draw_button(800, 360, 300, 70, arcade.color.GREEN, start, arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
+    if main_menu:
+        draw_background(0.5)
+        title_plane()
+        birds()
+        title()
+        draw_button(800, 360, 300, 70, arcade.color.GREEN, start, arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
+    else:
+        plane_game_draw()
 
 
 def on_key_press(key, modifiers):
-    pass
+    if not main_menu:
+        global keydown
+        global keyup
+        if key == arcade.key.DOWN:
+            keydown = True
+        if key == arcade.key.UP:
+            keyup = True
 
 
 def on_key_release(key, modifiers):
-    pass
+    if not main_menu:
+        global keyup
+        global keydown
+        if key == arcade.key.DOWN:
+            keydown = False
+        if key == arcade.key.UP:
+            keyup = False
 
 
 def on_mouse_press(x, y, button, modifiers):
@@ -95,9 +126,7 @@ def on_mouse_release(x, y, button, modifiers):
     if button == arcade.MOUSE_BUTTON_LEFT:
         mouse_press = False
         start_click = True
-        arcade.close_window()
-        starry.setup()
-        
+
 
 def on_mouse_motion(x, y, dx, dy):
     global mouse_x
@@ -181,6 +210,40 @@ def draw_button(x, y, width, height, colour_default, texture, colour_hover, colo
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         pressed = False
     arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
+
+
+def plane_game_draw():
+    arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
+    for x_star, y_star in zip(star_x_positions, star_y_positions):
+        arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
+    plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
+    arcade.draw_texture_rectangle(250, game_y_plane, 100, 100, plane)
+    arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
+
+
+def plane_game_logic():
+    global game_y_plane
+    global boom
+    global game_frametime, SPEED
+    game_frametime += 1
+    for x_range in range(len(star_x_positions)):
+        star_x_positions[x_range] -= SPEED
+        if star_x_positions[x_range] <= 0:
+            star_y_positions[x_range] = random.randrange(0, HEIGHT)
+            star_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
+    if game_y_plane >= 50:
+        if keydown:
+            game_y_plane -= 8
+    if game_y_plane <= HEIGHT - 50:
+        if keyup:
+            game_y_plane += 8
+    for detect in range(len(star_x_positions)):
+        if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
+                star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
+            arcade.close_window()
+
+    if game_frametime % 120 == 0:
+        SPEED += 0.35
 
 
 def game_start():

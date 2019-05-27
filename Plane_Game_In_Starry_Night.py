@@ -1,17 +1,18 @@
 import arcade
 import random
 
-WIDTH = 1280
-HEIGHT = 720
+WIDTH = 1600
+HEIGHT = 900
 
 star_x_positions = []
 star_y_positions = []
-y_plane = HEIGHT / 2
+game_y_plane = HEIGHT / 2
 keydown = False
 keyup = False
 boom = False
-frametime = 0
+game_frametime = 0
 SPEED = 4
+
 for i in range(10):
     x = random.randrange(WIDTH / 2, WIDTH * 2)
     y = random.randrange(HEIGHT)
@@ -35,27 +36,27 @@ def setup():
 
 
 def update(delta_time):
-    global y_plane
+    global game_y_plane
     global boom
-    global frametime, SPEED
-    frametime += 1
+    global game_frametime, SPEED
+    game_frametime += 1
     for x_range in range(len(star_x_positions)):
         star_x_positions[x_range] -= SPEED
         if star_x_positions[x_range] <= 0:
             star_y_positions[x_range] = random.randrange(0, HEIGHT)
             star_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
-    if y_plane >= 50:
+    if game_y_plane >= 50:
         if keydown:
-            y_plane -= 8
-    if y_plane <= HEIGHT - 50:
+            game_y_plane -= 8
+    if game_y_plane <= HEIGHT - 50:
         if keyup:
-            y_plane += 8
+            game_y_plane += 8
     for detect in range(len(star_x_positions)):
         if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
-                star_y_positions[detect] - 50 <= y_plane <= star_y_positions[detect] + 50):
+                star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
             arcade.close_window()
 
-    if frametime % 120 == 0:
+    if game_frametime % 120 == 0:
         SPEED += 0.35
 
 
@@ -64,8 +65,8 @@ def on_draw():
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
     plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
-    arcade.draw_texture_rectangle(250, y_plane, 100, 100, plane)
-    arcade.draw_text(str(frametime), 1200, 700, arcade.color.WHITE)
+    arcade.draw_texture_rectangle(250, game_y_plane, 100, 100, plane)
+    arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
 
 
 def on_key_press(key, modifiers):
