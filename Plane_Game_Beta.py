@@ -4,7 +4,8 @@ import random
 WIDTH = 1600
 HEIGHT = 960
 
-# Loading Textures
+# Loading Textures -----------------------------------------------------------------------------------------------------
+
 title_text = arcade.load_texture('title.png', 0, 0, 505, 150)
 background = arcade.load_texture('title screen background - Copy.jpg', 0, 0, 3194, 1200)
 bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
@@ -12,6 +13,7 @@ plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
 start = arcade.load_texture('start.png', 0, 0, 250, 90)
 
 # Global Variables -----------------------------------------------------------------------------------------------------
+
 bird_pos = [
     [1200, 800],
     [1400, 720],
@@ -41,7 +43,7 @@ mouse_press = False
 mouse_release = False
 pressed = False
 
-# Game Variables -------------------------------------------------------------------------
+# Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
 star_y_positions = []
@@ -50,12 +52,15 @@ keydown = False
 keyup = False
 boom = False
 game_frametime = 0
-SPEED = 4
+speed = 4
+
 for i in range(10):
     game_x = random.randrange(WIDTH / 2, WIDTH * 2)
     game_y = random.randrange(HEIGHT)
     star_x_positions.append(game_x)
     star_y_positions.append(game_y)
+
+# ----------------------------------------------------------------------------------------------------------------------
 
 
 def setup():
@@ -125,7 +130,6 @@ def on_mouse_release(x, y, button, modifiers):
     global mouse_press
     if button == arcade.MOUSE_BUTTON_LEFT:
         mouse_press = False
-        start_click = True
 
 
 def on_mouse_motion(x, y, dx, dy):
@@ -224,10 +228,17 @@ def plane_game_draw():
 def plane_game_logic():
     global game_y_plane
     global boom
-    global game_frametime, SPEED
+    global game_frametime, speed
+    global main_menu
+    global star_y_positions
+    global star_x_positions
+    global keyup
+    global keydown
+    global game_x
+    global game_y
     game_frametime += 1
     for x_range in range(len(star_x_positions)):
-        star_x_positions[x_range] -= SPEED
+        star_x_positions[x_range] -= speed
         if star_x_positions[x_range] <= 0:
             star_y_positions[x_range] = random.randrange(0, HEIGHT)
             star_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
@@ -237,14 +248,26 @@ def plane_game_logic():
     if game_y_plane <= HEIGHT - 50:
         if keyup:
             game_y_plane += 8
+    if game_frametime % 120 == 0 and game_frametime != 0:
+        speed += 0.35
     for detect in range(len(star_x_positions)):
         if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
                 star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
-            arcade.close_window()
+            star_x_positions = []
+            star_y_positions = []
+            game_y_plane = HEIGHT / 2
+            keydown = False
+            keyup = False
+            boom = False
+            game_frametime = 0
+            speed = 4
 
-    if game_frametime % 120 == 0:
-        SPEED += 0.35
-
+            for i in range(10):
+                game_x = random.randrange(WIDTH / 2, WIDTH * 2)
+                game_y = random.randrange(HEIGHT)
+                star_x_positions.append(game_x)
+                star_y_positions.append(game_y)
+            main_menu = True
 
 def game_start():
     global main_menu
