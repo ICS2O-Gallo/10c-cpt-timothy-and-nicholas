@@ -7,7 +7,7 @@ HEIGHT = 960
 # Loading Textures -----------------------------------------------------------------------------------------------------
 
 title_text = arcade.load_texture('title.png', 0, 0, 505, 150)
-background = arcade.load_texture('title screen background - Copy.jpg', 0, 0, 3194, 1200)
+background = arcade.load_texture('title screen background.jpg', 0, 0, 3194, 1200)
 bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
 plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
 start = arcade.load_texture('start.png', 0, 0, 250, 90)
@@ -47,6 +47,7 @@ pressed = False
 shop_pressed = False
 high_scores_pressed = False
 
+scores = open('scores.txt', 'a')
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -293,6 +294,7 @@ def plane_game_logic():
     for detect in range(len(star_x_positions)):
         if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
                 star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
+            scores.write(f'{str(game_frametime)}\n')
             star_x_positions = []
             star_y_positions = []
             game_y_plane = HEIGHT / 2
