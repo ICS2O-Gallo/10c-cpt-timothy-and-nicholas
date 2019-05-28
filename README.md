@@ -52,7 +52,8 @@ Intended for players who are interested in gaining the highest possible score, u
 ## Changing Controls
 For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py` under the `on_key_press` and `on_key_release` functions
 
-`
+
+
       if game:
     
           global keyup, keydown
@@ -75,7 +76,7 @@ Changing `arade.key.UP` follows the same principle.
 
    > Change up to `W` and down to `S` 
    
-`
+
 
 
 
@@ -97,7 +98,7 @@ Changing `arade.key.UP` follows the same principle.
 
 You MUST also mirror these to the `on_key_release` function!
 
-`
+
 
 
 
