@@ -53,13 +53,21 @@ Intended for players who are interested in gaining the highest possible score, u
 For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py`
 
 `
+
 def on_key_press(key, modifiers):
+
     if game:
+    
         global keyup, keydown
+        
         if key == arcade.key.DOWN:
+        
             keydown = True
+            
         if key == arcade.key.UP:
+        
             keyup = True
+            
 `
 
 Changing `arcade.key.DOWN` to another key such as `S` for down can be as simple as `arcade.key.S`
