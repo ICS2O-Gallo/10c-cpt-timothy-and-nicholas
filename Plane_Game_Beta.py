@@ -1,21 +1,41 @@
 import arcade
 import random
+import os
 
 WIDTH = 1600
 HEIGHT = 960
 
 # Loading Textures -----------------------------------------------------------------------------------------------------
 
-title_text = arcade.load_texture('title.png', 0, 0, 505, 150)
-background = arcade.load_texture('title screen background.jpg', 0, 0, 3194, 1200)
-bird = arcade.load_texture('bird.png', 0, 0, 1200, 1200)
-plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
-start = arcade.load_texture('start.png', 0, 0, 250, 90)
-highscores = arcade.load_texture('scores.png', 0, 0, 244, 204)
-shop = arcade.load_texture('shop.png', 0, 0, 520, 459)
-score_title = arcade.load_texture('leaderboard.tiff', 0, 0, 590, 190)
-home = arcade.load_texture('home.png', 0, 0, 512, 512)
-reset = arcade.load_texture('reset.png', 0, 0, 420, 420)
+title_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                                 'title.png', 0, 0, 505, 150)
+
+background = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
+                                 'title screen background.jpg', 0, 0, 3194, 1200)
+
+bird = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                           'bird.png', 0, 0, 1200, 1200)
+
+plane = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                            'plane.png', 0, 0, 420, 420)
+
+start = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                            'start.png', 0, 0, 250, 90)
+
+highscores = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                                 'scores.png', 0, 0, 244, 204)
+
+shop = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                           'shop.png', 0, 0, 520, 459)
+
+score_title = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                                  'leaderboard.tiff', 0, 0, 590, 190)
+
+home = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                           'home.png', 0, 0, 512, 512)
+
+reset = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                            'reset.png', 0, 0, 420, 420)
 
 # Global Variables -----------------------------------------------------------------------------------------------------
 
@@ -351,7 +371,6 @@ def plane_game_draw():
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
-    plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
     arcade.draw_texture_rectangle(250, game_y_plane, 100, 100, plane)
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
 
