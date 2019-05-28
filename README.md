@@ -106,11 +106,11 @@ You MUST also mirror these to the `on_key_release` function!
     
           global keyup, keydown
         
-          if key == arcade.key.DOWN:
+          if key == arcade.key.S:
         
              keydown = False
             
-          if key == arcade.key.UP:
+          if key == arcade.key.W:
         
               keyup = False
             
