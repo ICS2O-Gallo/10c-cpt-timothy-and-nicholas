@@ -40,7 +40,6 @@ mouse_y = 0
 frame_time = 0
 
 start_click = False
-main_menu = True
 mouse_press = False
 mouse_release = False
 pressed = False
@@ -54,6 +53,10 @@ scores_save = []
 for length in scores_read:
     scores_save.append(int(length.replace(', \n', '')))
 scores_save.sort(reverse=True)
+
+score_menu = False
+game = False
+main_menu = True
 
 # Game Variables -------------------------------------------------------------------------------------------------------
 
@@ -96,7 +99,7 @@ def update(delta_time):
     global frame_time
     if main_menu:
         frame_time += 1
-    else:
+    elif game:
         plane_game_logic()
 
 
@@ -113,12 +116,15 @@ def on_draw():
                          shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
         draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
                                 highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
-    else:
+    elif score_menu:
+        draw_background(1)
+        title_plane()
+    elif game:
         plane_game_draw()
 
 
 def on_key_press(key, modifiers):
-    if not main_menu:
+    if game:
         global keyup, keydown
         if key == arcade.key.DOWN:
             keydown = True
@@ -127,7 +133,7 @@ def on_key_press(key, modifiers):
 
 
 def on_key_release(key, modifiers):
-    if not main_menu:
+    if game:
         global keyup, keydown
         if key == arcade.key.DOWN:
             keydown = False
@@ -253,7 +259,7 @@ def draw_shop_button(x, y, width, height, colour_default, texture, colour_hover,
 
 
 def draw_high_scores_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
-    global high_scores_pressed
+    global high_scores_pressed, score_menu, main_menu
     if mouse_x > x - (width / 2) and \
             mouse_x < x + (width / 2) and \
             mouse_y < y + (height / 2) and \
@@ -269,10 +275,13 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture, colour
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if high_scores_pressed:
             list_scores()
+            score_menu = True
+            main_menu = False
             high_scores_pressed = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         high_scores_pressed = False
+        score_menu = False
     arcade.draw_texture_rectangle(x, y - 3, width, height * 1.15, texture)
 
 
@@ -325,6 +334,10 @@ def plane_game_logic():
             main_menu = True
 
 
+def scores_menu():
+    pass
+
+
 def list_scores():
     print('Here are the top 10 scores: ')
     if len(scores_save) < 10:
@@ -336,8 +349,9 @@ def list_scores():
 
 
 def game_start():
-    global main_menu
+    global main_menu, game
     main_menu = False
+    game = True
     print('game started')
 
 
