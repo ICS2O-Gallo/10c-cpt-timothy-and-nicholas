@@ -54,6 +54,7 @@ scores_save = []
 for length in scores_read:
     scores_save.append(int(length.replace(', \n', '')))
 scores_save.sort(reverse=True)
+
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -106,9 +107,12 @@ def on_draw():
         title_plane()
         birds()
         title()
-        draw_button(813, 360, 300, 70, arcade.color.GREEN, start, arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
-        draw_shop_button(1078, 360, 150, 70, arcade.color.DARK_CYAN, shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
-        draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK, highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
+        draw_button(813, 360, 300, 70, arcade.color.GREEN, start,
+                    arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
+        draw_shop_button(1078, 360, 150, 70, arcade.color.DARK_CYAN,
+                         shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
+        draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
+                                highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
     else:
         plane_game_draw()
 
