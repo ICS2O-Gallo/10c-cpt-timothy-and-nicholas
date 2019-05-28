@@ -61,6 +61,7 @@ def on_key_press(key, modifiers):
         if key == arcade.key.UP:
             keyup = True
 `
+
 Changing `arcade.key.DOWN` to another key such as `S` for down can be as simple as `arcade.key.S`
 
 Changing `arade.key.UP` follows the same principle.
@@ -70,6 +71,7 @@ Changing `arade.key.UP` follows the same principle.
    > Change up to `W` and down to `S` 
    
 `
+
 def on_key_press(key, modifiers):
 
     if game:
@@ -83,12 +85,16 @@ def on_key_press(key, modifiers):
         if key == arcade.key.W:
         
             keyup = True
+            
 `
+
 • **IMPORTANT** 
 
 You MUST also mirror these to the `on_key_release()` function!
 
-`def on_key_release(key, modifiers):
+`
+
+def on_key_release(key, modifiers):
 
     if game:
     
