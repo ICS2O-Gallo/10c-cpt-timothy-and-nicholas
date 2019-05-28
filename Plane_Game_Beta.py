@@ -48,6 +48,12 @@ shop_pressed = False
 high_scores_pressed = False
 
 scores = open('scores.txt', 'a')
+
+scores_read = open('scores.txt', 'r')
+scores_save = []
+for length in scores_read:
+    scores_save.append(int(length.replace(', \n', '')))
+scores_save.sort(reverse=True)
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -258,6 +264,7 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture, colour
             mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if high_scores_pressed:
+            list_scores()
             high_scores_pressed = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
@@ -294,7 +301,7 @@ def plane_game_logic():
     for detect in range(len(star_x_positions)):
         if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
                 star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
-            scores.write(f'{str(game_frametime)}\n')
+            scores.write(f'{str(game_frametime)}, \n')
             star_x_positions = []
             star_y_positions = []
             game_y_plane = HEIGHT / 2
@@ -310,6 +317,17 @@ def plane_game_logic():
                 star_x_positions.append(game_x)
                 star_y_positions.append(game_y)
             main_menu = True
+
+
+def list_scores():
+    print('Here are the top 10 scores: ')
+    if len(scores_save) < 10:
+        for top in range(len(scores_save)):
+            print(f'[{top + 1}]: {scores_save[top]}')
+    else:
+        for top in range(10):
+            print(f'[{top + 1}]: {scores_save[top]}')
+
 
 def game_start():
     global main_menu
