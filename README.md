@@ -52,9 +52,8 @@ Intended for players who are interested in gaining the highest possible score, u
 ## Changing Controls
 For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py`
 
-`
 
-def on_key_press(key, modifiers):
+`def on_key_press(key, modifiers):
 
     if game:
     
