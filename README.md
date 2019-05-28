@@ -50,7 +50,7 @@ Intended for players who are interested in gaining the highest possible score, u
 > UPGRADES TBD  
 
 ## Changing Controls
-For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py` under the `on_key_press` and `on_key_release` functions
+For more experienced coders, controls can be easily changed in `Plane_Game_Beta.py` under the `on_key_press` and `on_key_release` functions
 
 
 
