@@ -307,7 +307,7 @@ def plane_game_logic():
                 star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
             scores.write(f'{str(game_frametime)}, \n')
             scores_save.append(game_frametime)
-            scores_save.sort()
+            scores_save.sort(reversed=True)
             star_x_positions = []
             star_y_positions = []
             game_y_plane = HEIGHT / 2
