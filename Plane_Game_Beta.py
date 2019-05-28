@@ -322,7 +322,7 @@ def draw_home_button(x, y, width, height, colour_default, texture, colour_hover,
 
 
 def draw_reset_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
-    global reset_pressed, scores_reset
+    global reset_pressed, scores_save
     if mouse_x > x - (width / 2) and \
             mouse_x < x + (width / 2) and \
             mouse_y < y + (height / 2) and \
@@ -340,6 +340,7 @@ def draw_reset_button(x, y, width, height, colour_default, texture, colour_hover
             reset_pressed = False
             scores_reset = open('scores.txt', 'w')
             scores_reset.write("")
+            scores_save = []
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         reset_pressed = False
