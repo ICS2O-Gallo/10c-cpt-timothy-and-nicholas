@@ -22,10 +22,14 @@ Simply download the whole repository and after extracting, put it under a single
 
 ## Goal
   The ultimate goal is to try to get the highest possible score, employing different tactics and tricks to get the highest score. The user must move their plane to avoid touching any of the obstacles.
+  
 ## Controls
 Plane game can be controlled with only two buttons.
+
 • Pressing UPARROW `↑` moves the plane up
+
 • Pressing DOWNARROW `↓` moves the plane down
+
 ## Menus
 When entering the game, three buttons can be found. From left to right, these three buttons are: leaderboards, play, and shop.
 Clicking on any of these buttons leads to their respective menus. 
