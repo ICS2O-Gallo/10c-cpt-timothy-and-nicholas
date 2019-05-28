@@ -66,7 +66,7 @@ For more experienced coders, controls can be easily changed in `Plane_Game_Beta.
         
               keyup = True
             
-`
+
 
 Changing `arcade.key.DOWN` to another key such as `S` for down can be as simple as `arcade.key.S`
 
@@ -92,7 +92,7 @@ Changing `arade.key.UP` follows the same principle.
         
               keyup = True
             
-`
+
 
 • **IMPORTANT** 
 
@@ -114,7 +114,7 @@ You MUST also mirror these to the `on_key_release` function!
         
               keyup = False
             
-`
+
 
 
 
