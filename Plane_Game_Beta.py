@@ -13,6 +13,9 @@ plane = arcade.load_texture('plane.png', 0, 0, 420, 420)
 start = arcade.load_texture('start.png', 0, 0, 250, 90)
 highscores = arcade.load_texture('scores.png', 0, 0, 244, 204)
 shop = arcade.load_texture('shop.png', 0, 0, 520, 459)
+score_title = arcade.load_texture('leaderboard.tiff', 0, 0, 590, 190)
+home = arcade.load_texture('home.png', 0, 0, 512, 512)
+reset = arcade.load_texture('reset.png', 0, 0, 420, 420)
 
 # Global Variables -----------------------------------------------------------------------------------------------------
 
@@ -53,6 +56,9 @@ scores_save = []
 for length in scores_read:
     scores_save.append(int(length.replace(', \n', '')))
 scores_save.sort(reverse=True)
+
+home_pressed = False
+reset_pressed = True
 
 score_menu = False
 game = False
@@ -119,6 +125,11 @@ def on_draw():
     elif score_menu:
         draw_background(1)
         title_plane()
+        scores_menu()
+        draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
+                         arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
+        draw_reset_button(50, HEIGHT - 125, 50, 50, arcade.color.RED, reset, arcade.color.DARK_RED, arcade.color.PINK)
+
     elif game:
         plane_game_draw()
 
@@ -285,6 +296,56 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture, colour
     arcade.draw_texture_rectangle(x, y - 3, width, height * 1.15, texture)
 
 
+def draw_home_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
+    global home_pressed, main_menu, score_menu
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        home_pressed = True
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if home_pressed:
+            home_pressed = False
+            main_menu = True
+            score_menu = False
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        home_pressed = False
+    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+
+
+def draw_reset_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
+    global reset_pressed, scores_reset
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        reset_pressed = True
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if reset_pressed:
+            reset_pressed = False
+            scores_reset = open('scores.txt', 'w')
+            scores_reset.write("")
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        reset_pressed = False
+    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+
+
 def plane_game_draw():
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
@@ -335,7 +396,18 @@ def plane_game_logic():
 
 
 def scores_menu():
-    pass
+    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 160, 590, 190, score_title)
+    height = 700
+    if 10 > len(scores_save) != 0:
+        for i in range(len(scores_save)):
+            arcade.draw_text(str(scores_save[i]), WIDTH / 2, height, arcade.color.BLACK, 24)
+            height -= 70
+    elif len(scores_save) >= 10:
+        for i in range(10):
+            arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.BLACK, 24)
+            height -= 70
+    else:
+        arcade.draw_text('No game progress is present', WIDTH / 2 - 180, HEIGHT / 2, arcade.color.BLACK, 24)
 
 
 def list_scores():
