@@ -50,10 +50,9 @@ Intended for players who are interested in gaining the highest possible score, u
 - UPGRADES TBD - 
 
 ## Changing Controls
-For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py`
+For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py` under the `on_key_press` and `on_key_release` functions
 
 `
- def on_key_press(key, modifiers):
       if game:
     
           global keyup, keydown
@@ -78,7 +77,7 @@ Changing `arade.key.UP` follows the same principle.
    
 `
 
-  def on_key_press(key, modifiers):
+
 
       if game:
     
@@ -96,11 +95,11 @@ Changing `arade.key.UP` follows the same principle.
 
 • **IMPORTANT** 
 
-You MUST also mirror these to the `on_key_release()` function!
+You MUST also mirror these to the `on_key_release` function!
 
 `
 
-  def on_key_release(key, modifiers):
+
 
       if game:
     
