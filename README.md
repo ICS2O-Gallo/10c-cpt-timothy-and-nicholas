@@ -52,20 +52,20 @@ Intended for players who are interested in gaining the highest possible score, u
 ## Changing Controls
 For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py`
 
+`
+ def on_key_press(key, modifiers):
 
-`def on_key_press(key, modifiers):
-
-    if game:
+      if game:
     
-        global keyup, keydown
+          global keyup, keydown
         
-        if key == arcade.key.DOWN:
+          if key == arcade.key.DOWN:
         
-            keydown = True
+              keydown = True
             
-        if key == arcade.key.UP:
+          if key == arcade.key.UP:
         
-            keyup = True
+              keyup = True
             
 `
 
@@ -79,19 +79,19 @@ Changing `arade.key.UP` follows the same principle.
    
 `
 
-def on_key_press(key, modifiers):
+  def on_key_press(key, modifiers):
 
-    if game:
+      if game:
     
-        global keyup, keydown
+          global keyup, keydown
         
-        if key == arcade.key.S:
+          if key == arcade.key.S:
         
-            keydown = True
+              keydown = True
             
-        if key == arcade.key.W:
+          if key == arcade.key.W:
         
-            keyup = True
+              keyup = True
             
 `
 
@@ -101,19 +101,19 @@ You MUST also mirror these to the `on_key_release()` function!
 
 `
 
-def on_key_release(key, modifiers):
+  def on_key_release(key, modifiers):
 
-    if game:
+      if game:
     
-        global keyup, keydown
+          global keyup, keydown
         
-        if key == arcade.key.DOWN:
+          if key == arcade.key.DOWN:
         
-            keydown = False
+             keydown = False
             
-        if key == arcade.key.UP:
+          if key == arcade.key.UP:
         
-            keyup = False
+              keyup = False
             
 `
 
