@@ -47,7 +47,7 @@ Clicking on any of these buttons leads to their respective menus.
 ## Upgrades
 Intended for players who are interested in gaining the highest possible score, upgrades can be purchased with currency collected from playing the game.
 
-- UPGRADES TBD - 
+> - UPGRADES TBD - 
 
 ## Changing Controls
 For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py` under the `on_key_press` and `on_key_release` functions
