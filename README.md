@@ -45,5 +45,48 @@ Clicking on any of these buttons leads to their respective menus.
   • Player balance will also be shown here
   
 ## Upgrades
+Intended for players who are interested in gaining the highest possible score, upgrades can be purchased with currency collected from playing the game.
+
+- UPGRADES TBD - 
 
 ## Changing Controls
+For more experienced coders, controls can be easily changed in `Plain_Game_Beta.py`
+
+`
+def on_key_press(key, modifiers):
+    if game:
+        global keyup, keydown
+        if key == arcade.key.DOWN:
+            keydown = True
+        if key == arcade.key.UP:
+            keyup = True
+`
+Changing `arcade.key.DOWN` to another key such as `S` for down can be as simple as `arcade.key.S`
+
+Changing `arade.key.UP` follows the same principle.
+
+• **Example:** 
+   > Change up to `W` and down to `S` 
+`
+def on_key_press(key, modifiers):
+    if game:
+        global keyup, keydown
+        if key == arcade.key.S:
+            keydown = True
+        if key == arcade.key.W:
+            keyup = True
+`
+• **IMPORTANT** 
+
+You MUST also mirror these to the `on_key_release()` function!
+`def on_key_release(key, modifiers):
+    if game:
+        global keyup, keydown
+        if key == arcade.key.DOWN:
+            keydown = False
+        if key == arcade.key.UP:
+            keyup = False
+`
+
+
+
