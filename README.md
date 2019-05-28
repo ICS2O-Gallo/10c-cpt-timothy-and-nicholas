@@ -54,7 +54,6 @@ For more experienced coders, controls can be easily changed in `Plain_Game_Beta.
 
 `
  def on_key_press(key, modifiers):
-
       if game:
     
           global keyup, keydown
