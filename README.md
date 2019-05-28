@@ -1,5 +1,5 @@
 # Plane Game
-ICS 201 CPT - Nicholas and Tim
+ICS 2O1 CPT - Nicholas and Tim
 
 **Status:** Under development
 
