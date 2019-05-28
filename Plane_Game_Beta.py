@@ -282,7 +282,7 @@ def plane_game_draw():
 
 
 def plane_game_logic():
-    global game_y_plane, boom, game_frametime, speed, main_menu
+    global game_y_plane, boom, game_frametime, speed, main_menu, scores_save
     global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions
     game_frametime += 1
     for x_range in range(len(star_x_positions)):
@@ -302,6 +302,8 @@ def plane_game_logic():
         if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
                 star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
             scores.write(f'{str(game_frametime)}, \n')
+            scores_save.append(game_frametime)
+            scores_save.sort()
             star_x_positions = []
             star_y_positions = []
             game_y_plane = HEIGHT / 2
