@@ -401,11 +401,25 @@ def scores_menu():
     height = 700
     if 10 > len(scores_save) != 0:
         for i in range(len(scores_save)):
-            arcade.draw_text(str(scores_save[i]), WIDTH / 2, height, arcade.color.BLACK, 24)
+            if i == 0:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.GOLD, 24)
+            elif i == 1:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.SILVER, 24)
+            elif i == 2:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.BRONZE, 24)
+            else:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.BLACK, 24)
             height -= 70
     elif len(scores_save) >= 10:
         for i in range(10):
-            arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.BLACK, 24)
+            if i == 0:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.GOLD, 24)
+            elif i == 1:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.SILVER, 24)
+            elif i == 2:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.BRONZE, 24)
+            else:
+                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}', WIDTH / 2, height, arcade.color.BLACK, 24)
             height -= 70
     else:
         arcade.draw_text('No game progress is present', WIDTH / 2 - 180, HEIGHT / 2, arcade.color.BLACK, 24)
