@@ -17,6 +17,7 @@ A pun on *plain* game, Plane Game is a side-scrolling game based off of PyArcade
 
 Simply download the whole repository and after extracting, put it under a single directory, and run it with your IDE of choice.
 
+
 # Game Instructions
 
 ## Goal:
