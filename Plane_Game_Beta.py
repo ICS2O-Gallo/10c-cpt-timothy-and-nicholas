@@ -178,12 +178,15 @@ def on_draw():
 
 
 def on_key_press(key, modifiers):
+    global keyup, keydown, dead, game
     if game:
-        global keyup, keydown
         if key == arcade.key.DOWN:
             keydown = True
         if key == arcade.key.UP:
             keyup = True
+        if key == arcade.key.ESCAPE:
+            game = False
+            dead = True
 
 
 def on_key_release(key, modifiers):
