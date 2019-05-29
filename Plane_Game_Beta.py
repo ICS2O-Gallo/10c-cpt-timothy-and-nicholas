@@ -40,6 +40,19 @@ reset = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
 gameover = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
                                'gameover.png', 0, 0, 495, 170)
 
+plane1 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
+                             'planecrash1.png', 0, 0, 1458, 1000)
+
+plane2 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
+                             'planecrash2.png', 0, 0, 1458, 1000)
+
+plane3 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
+                             'planecrash3.png', 0, 0, 1458, 1000)
+
+plane4 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
+                             'planecrash4.png', 0, 0, 1458, 1000)
+
+planes = [plane1, plane2, plane3, plane4]
 # Global Variables -----------------------------------------------------------------------------------------------------
 
 bird_pos = [
@@ -64,6 +77,9 @@ mouse_x = 0
 mouse_y = 0
 
 frame_time = 0
+
+game_over_frametime = 0
+game_over_animation = 0
 
 start_click = False
 mouse_press = False
@@ -520,10 +536,24 @@ def game_start():
     print('game started')
 
 
+def game_over_background():
+    global game_over_frametime, game_over_animation
+    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT, planes[game_over_animation])
+
+    if game_over_frametime % 15 == 0 and game_over_frametime != 0:
+        game_over_animation += 1
+
+    if game_over_animation == 4:
+        game_over_animation = 0
+    game_over_frametime += 1
+
+
 def game_over():
+    game_over_background()
     arcade.draw_texture_rectangle(WIDTH / 2 + 20, HEIGHT - 160, 495, 170, gameover)
     draw_restart_button(WIDTH / 2, 500, 100, 100, arcade.color.ORANGE, reset, arcade.color.GOLD, arcade.color.YELLOW)
     draw_game_main_menu_button(WIDTH / 2, 350, 100, 100, arcade.color.RED, home, arcade.color.DARK_RED, arcade.color.PINK)
+    arcade.draw_rectangle_filled(WIDTH / 2 - 10, HEIGHT - 290, 200, 48, arcade.color.LIGHT_GRAY)
     arcade.draw_text(f'Score: {game_frametime}', WIDTH / 2 - 75, HEIGHT - 300, arcade.color.BLACK, 24)
 
 
