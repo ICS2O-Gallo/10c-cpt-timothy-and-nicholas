@@ -37,6 +37,9 @@ home = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
 reset = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
                             'reset.png', 0, 0, 420, 420)
 
+gameover = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                               'gameover.png', 0, 0, 495, 170)
+
 # Global Variables -----------------------------------------------------------------------------------------------------
 
 bird_pos = [
@@ -79,11 +82,13 @@ scores_save.sort(reverse=True)
 
 home_pressed = False
 reset_pressed = True
+restart_pressed = False
+game_main_menu_pressed = False
 
 score_menu = False
 game = False
 main_menu = True
-
+dead = False
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -131,7 +136,9 @@ def update(delta_time):
 
 def on_draw():
     arcade.start_render()
-    if main_menu:
+    if dead:
+        game_over()
+    elif main_menu:
         draw_background(0.5)
         title_plane()
         birds()
@@ -367,6 +374,58 @@ def draw_reset_button(x, y, width, height, colour_default, texture, colour_hover
     arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
 
 
+def draw_restart_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
+    global restart_pressed, dead, game, game_frametime
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        restart_pressed = True
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if restart_pressed:
+            restart_pressed = False
+            dead = False
+            game = True
+            game_frametime = 0
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        restart_pressed = False
+    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+
+
+def draw_game_main_menu_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
+    global game_main_menu_pressed, main_menu, dead, game_frametime
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        game_main_menu_pressed = True
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if game_main_menu_pressed:
+            game_main_menu_pressed = False
+            main_menu = True
+            dead = False
+            game_frametime = 0
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        game_main_menu_pressed = False
+    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+
+
 def plane_game_draw():
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
@@ -376,8 +435,8 @@ def plane_game_draw():
 
 
 def plane_game_logic():
-    global game_y_plane, boom, game_frametime, speed, main_menu, scores_save
-    global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions
+    global game_y_plane, boom, game_frametime, speed, main_menu, scores_save, dead
+    global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions, game
     game_frametime += 1
     for x_range in range(len(star_x_positions)):
         star_x_positions[x_range] -= speed
@@ -404,7 +463,6 @@ def plane_game_logic():
             keydown = False
             keyup = False
             boom = False
-            game_frametime = 0
             speed = 4
 
             for i in range(10):
@@ -412,7 +470,8 @@ def plane_game_logic():
                 game_y = random.randrange(HEIGHT)
                 star_x_positions.append(game_x)
                 star_y_positions.append(game_y)
-            main_menu = True
+            dead = True
+            game = False
 
 
 def scores_menu():
@@ -461,5 +520,13 @@ def game_start():
     print('game started')
 
 
+def game_over():
+    arcade.draw_texture_rectangle(WIDTH / 2 + 20, HEIGHT - 160, 495, 170, gameover)
+    draw_restart_button(WIDTH / 2, 500, 100, 100, arcade.color.ORANGE, reset, arcade.color.GOLD, arcade.color.YELLOW)
+    draw_game_main_menu_button(WIDTH / 2, 350, 100, 100, arcade.color.RED, home, arcade.color.DARK_RED, arcade.color.PINK)
+    arcade.draw_text(f'Score: {game_frametime}', WIDTH / 2 - 75, HEIGHT - 300, arcade.color.BLACK, 24)
+
+
 if __name__ == '__main__':
     setup()
+
