@@ -166,7 +166,7 @@ def on_draw():
         draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
                                 highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
     elif score_menu:
-        draw_background(1)
+        draw_background(0.5)
         title_plane()
         scores_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
@@ -468,8 +468,11 @@ def plane_game_logic():
     if game_frametime % 120 == 0 and game_frametime != 0:
         speed += 0.35
     for detect in range(len(star_x_positions)):
-        if (star_x_positions[detect] - 50 <= 250 <= star_x_positions[detect] + 50) and (
-                star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50):
+        if ((200 <= star_x_positions[detect] <= 284) and (
+                star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50)) or \
+                ((300 >= star_x_positions[detect] >= 285) and (
+                        star_y_positions[detect] - 22 <= game_y_plane <= star_y_positions[detect] + 22)):
+
             scores.write(f'{str(game_frametime)}, \n')
             scores_save.append(game_frametime)
             scores_save.sort(reverse=True)
