@@ -175,6 +175,8 @@ def on_draw():
                          shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
         draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
                                 highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
+        arcade.draw_text('Press space to pause (only available twice per game)', 485, 225, arcade.color.BLACK, 24)
+        arcade.draw_text('Press esc to immediately end the current game', 510, 175, arcade.color.BLACK, 24)
     elif score_menu:
         draw_background(0.5)
         title_plane()
