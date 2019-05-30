@@ -26,9 +26,13 @@ Simply download the whole repository and after extracting, put it under a single
 ## Controls
 Plane game can be controlled with only two buttons.
 
-• Pressing UPARROW `↑` moves the plane up
+• Pressing UPARROW `↑` moves the plane up.
 
-• Pressing DOWNARROW `↓` moves the plane down
+• Pressing DOWNARROW `↓` moves the plane down.
+
+• Pressing `ESCAPE` while playing the game will result in an immediate ending of the round.
+
+• Pressing `SPACE` while playing the game will pause the game. This can only be done **twice** per round.
 
 ## Menus
 When entering the game, three buttons can be found. From left to right, these three buttons are: leaderboards, play, and shop.
@@ -50,7 +54,7 @@ Intended for players who are interested in gaining the highest possible score, u
 > UPGRADES TBD  
 
 ## Changing Controls
-For more experienced coders, controls can be easily changed in `Plane_Game_Beta.py` under the `on_key_press` and `on_key_release` functions
+For more experienced coders, controls can be easily changed in `Plane_Game_Beta.py` under the `on_key_press` and `on_key_release` functions.
 
 
 
@@ -68,7 +72,7 @@ For more experienced coders, controls can be easily changed in `Plane_Game_Beta.
             
 
 
-Changing `arcade.key.DOWN` to another key such as `S` for down can be as simple as `arcade.key.S`
+Changing `arcade.key.DOWN` to another key such as `S` for down can be as simple as `arcade.key.S`.
 
 Changing `arade.key.UP` follows the same principle.
 
