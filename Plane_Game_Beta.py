@@ -183,7 +183,8 @@ def on_draw():
                          shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
         draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
                                 highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
-        draw_information_button(813, 260, 300, 70, arcade.color.GOLDEN_POPPY, instructions, arcade.color.GOLD, arcade.color.ORANGE_PEEL)
+        draw_information_button(813, 260, 300, 70,
+                                arcade.color.GOLDEN_POPPY, instructions, arcade.color.GOLD, arcade.color.ORANGE_PEEL)
     elif score_menu:
         draw_background(0.5)
         title_plane()
@@ -637,6 +638,7 @@ def pause_menu():
 
 def info_menu():
     arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT / 2 + 100, 810 * 1.75, 563 * 1.75, info_text)
+
 
 if __name__ == '__main__':
     setup()
