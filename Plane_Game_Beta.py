@@ -58,6 +58,12 @@ pause_background = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.se
 pause_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
                                  'game_paused.tiff', 0, 0, 649, 227)
 
+instructions = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                                   'instructions.png', 0, 0, 702, 262)
+
+info_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                                  'information.png', 0, 0, 810, 563)
+
 planes = [plane1, plane2, plane3, plane4]
 # Global Variables -----------------------------------------------------------------------------------------------------
 
@@ -115,6 +121,8 @@ paused = False
 prev_speed = 0
 times_paused = 0
 too_many_pause = False
+information = False
+information_pressed = False
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -175,8 +183,7 @@ def on_draw():
                          shop, arcade.color.LIGHT_BLUE, arcade.color.BLUE_BELL)
         draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
                                 highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
-        arcade.draw_text('Press space to pause (only available twice per game)', 485, 225, arcade.color.BLACK, 24)
-        arcade.draw_text('Press esc to immediately end the current game', 510, 175, arcade.color.BLACK, 24)
+        draw_information_button(813, 260, 300, 70, arcade.color.GOLDEN_POPPY, instructions, arcade.color.GOLD, arcade.color.ORANGE_PEEL)
     elif score_menu:
         draw_background(0.5)
         title_plane()
@@ -188,6 +195,11 @@ def on_draw():
         pause_menu()
     elif game:
         plane_game_draw()
+    elif information:
+        draw_background(0.5)
+        info_menu()
+        draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
+                         arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
 
 
 def on_key_press(key, modifiers):
@@ -205,6 +217,7 @@ def on_key_press(key, modifiers):
             times_paused += 1
         elif key == arcade.key.SPACE and paused:
             paused = False
+
 
 def on_key_release(key, modifiers):
     if game:
@@ -360,7 +373,7 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture, colour
 
 
 def draw_home_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
-    global home_pressed, main_menu, score_menu
+    global home_pressed, main_menu, score_menu, information
     if mouse_x > x - (width / 2) and \
             mouse_x < x + (width / 2) and \
             mouse_y < y + (height / 2) and \
@@ -377,7 +390,10 @@ def draw_home_button(x, y, width, height, colour_default, texture, colour_hover,
         if home_pressed:
             home_pressed = False
             main_menu = True
-            score_menu = False
+            if score_menu:
+                score_menu = False
+            elif information:
+                information = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         home_pressed = False
@@ -460,6 +476,32 @@ def draw_game_main_menu_button(x, y, width, height, colour_default, texture, col
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         game_main_menu_pressed = False
     arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+
+
+def draw_information_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
+    global information_pressed, information, main_menu
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        information_pressed = True
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if information_pressed:
+            information_pressed = False
+            information = True
+            main_menu = False
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        information_pressed = False
+        information = False
+    arcade.draw_texture_rectangle(x + 5, y, width * 0.8, height * 0.8, texture)
 
 
 def plane_game_draw():
@@ -592,6 +634,9 @@ def pause_menu():
     arcade.draw_texture_rectangle(250, game_y_plane, 100, 100, plane)
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
 
+
+def info_menu():
+    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT / 2 + 100, 810 * 1.75, 563 * 1.75, info_text)
 
 if __name__ == '__main__':
     setup()
