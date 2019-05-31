@@ -214,6 +214,8 @@ def on_key_press(key, modifiers):
         if key == arcade.key.ESCAPE:
             game = False
             dead = True
+            paused = False
+            times_paused = 0
         if key == arcade.key.SPACE and not paused and times_paused < 2:
             paused = True
             times_paused += 1
