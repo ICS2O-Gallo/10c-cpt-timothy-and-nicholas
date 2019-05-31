@@ -106,14 +106,6 @@ pressed = False
 shop_pressed = False
 high_scores_pressed = False
 
-scores = open('scores.txt', 'a')
-
-scores_read = open('scores.txt', 'r')
-scores_save = []
-for length in scores_read:
-    scores_save.append(int(length.replace(', \n', '')))
-scores_save.sort(reverse=True)
-
 home_pressed = False
 reset_pressed = True
 restart_pressed = False
@@ -381,7 +373,6 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture, colour
             mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if high_scores_pressed:
-            list_scores()
             score_menu = True
             main_menu = False
             high_scores_pressed = False
@@ -423,7 +414,7 @@ def draw_home_button(x, y, width, height, colour_default, texture, colour_hover,
 
 
 def draw_reset_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
-    global reset_pressed, scores_save
+    global reset_pressed
     if mouse_x > x - (width / 2) and \
             mouse_x < x + (width / 2) and \
             mouse_y < y + (height / 2) and \
@@ -441,7 +432,6 @@ def draw_reset_button(x, y, width, height, colour_default, texture, colour_hover
             reset_pressed = False
             scores_reset = open('scores.txt', 'w')
             scores_reset.write("")
-            scores_save = []
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         reset_pressed = False
@@ -558,9 +548,9 @@ def plane_game_logic():
                     ((300 >= star_x_positions[detect] >= 285) and (
                             star_y_positions[detect] - 22 <= game_y_plane <= star_y_positions[detect] + 22)):
 
+                scores = open('scores.txt', 'a')
                 scores.write(f'{str(game_frametime)}, \n')
-                scores_save.append(game_frametime)
-                scores_save.sort(reverse=True)
+                scores.close()
                 star_x_positions = []
                 star_y_positions = []
                 game_y_plane = HEIGHT / 2
@@ -582,6 +572,13 @@ def plane_game_logic():
 def scores_menu():
     arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 160, 590, 190, score_title)
     height = 700
+    scores_read = open('scores.txt', 'r')
+    scores_save = []
+
+    for length in scores_read:
+        scores_save.append(int(length.replace(', \n', '')))
+    scores_read.close()
+    scores_save.sort(reverse=True)
     if 10 > len(scores_save) != 0:
         for i in range(len(scores_save)):
             if i == 0:
@@ -606,16 +603,6 @@ def scores_menu():
             height -= 70
     else:
         arcade.draw_text('No game progress is present', WIDTH / 2 - 180, HEIGHT / 2, arcade.color.BLACK, 24)
-
-
-def list_scores():
-    print('Here are the top 10 scores: ')
-    if len(scores_save) < 10:
-        for top in range(len(scores_save)):
-            print(f'[{top + 1}]: {scores_save[top]}')
-    else:
-        for top in range(10):
-            print(f'[{top + 1}]: {scores_save[top]}')
 
 
 def game_start():
