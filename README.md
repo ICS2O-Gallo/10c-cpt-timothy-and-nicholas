@@ -11,9 +11,10 @@ ICS 2O1 CPT - Nicholas and Tim
 
 ### Plane Game requires the following packages:
 
-• **Random**: https://docs.python.org/2/library/random.html
-
 • **PyArcade**: https://pypi.org/project/arcade/ 
+
+• **IMPORTANT:** PyArcade version 2.0.9 or later MUST be used! Parameters for loading sprites have changed since this version.
+
 
 Simply download the whole repository and after extracting, put it under a single directory, and run it with your IDE of choice.
 
