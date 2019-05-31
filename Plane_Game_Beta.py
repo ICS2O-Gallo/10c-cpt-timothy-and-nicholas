@@ -198,6 +198,7 @@ def on_draw():
         plane_game_draw()
     elif information:
         draw_background(0.5)
+        title_plane()
         info_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
                          arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
