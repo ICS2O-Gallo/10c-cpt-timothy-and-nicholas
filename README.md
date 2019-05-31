@@ -119,6 +119,9 @@ You MUST also mirror these to the `on_key_release` function!
         
               keyup = False
             
+# Performance Tips
+
+• To ensure that the game runs at its optimal speed, ensure that your [power option](https://gyazo.com/01f2a91c68cab85950ac2ff14a191591) is set to **high performance** in windows.
 
 
 
