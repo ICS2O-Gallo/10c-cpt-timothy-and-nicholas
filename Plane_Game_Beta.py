@@ -64,6 +64,12 @@ instructions = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
 info_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
                                 'information.png', 0, 0, 810, 563)
 
+shop_title = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
+                                 'shoptitle.tiff', 0, 0, 189, 88)
+
+coin = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
+                           'coin.tiff', 0, 0, 580, 580)
+
 planes = [plane1, plane2, plane3, plane4]
 # Global Variables -----------------------------------------------------------------------------------------------------
 
@@ -123,6 +129,7 @@ times_paused = 0
 too_many_pause = False
 information = False
 information_pressed = False
+store_menu = False
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -200,6 +207,12 @@ def on_draw():
         draw_background(0.5)
         title_plane()
         info_menu()
+        draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
+                         arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
+    elif store_menu:
+        draw_background(0.5)
+        title_plane()
+        shop_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
                          arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
 
@@ -327,7 +340,7 @@ def draw_button(x, y, width, height, colour_default, texture, colour_hover, colo
 
 
 def draw_shop_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
-    global shop_pressed
+    global shop_pressed, main_menu, store_menu
     if mouse_x > x - (width / 2) and \
             mouse_x < x + (width / 2) and \
             mouse_y < y + (height / 2) and \
@@ -343,9 +356,12 @@ def draw_shop_button(x, y, width, height, colour_default, texture, colour_hover,
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if shop_pressed:
             shop_pressed = False
+            main_menu = False
+            store_menu = True
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         shop_pressed = False
+        store_menu = False
     arcade.draw_texture_rectangle(x, y + 5, width, height * 1.15, texture)
 
 
@@ -377,7 +393,7 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture, colour
 
 
 def draw_home_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
-    global home_pressed, main_menu, score_menu, information
+    global home_pressed, main_menu, score_menu, information, store_menu
     if mouse_x > x - (width / 2) and \
             mouse_x < x + (width / 2) and \
             mouse_y < y + (height / 2) and \
@@ -398,6 +414,8 @@ def draw_home_button(x, y, width, height, colour_default, texture, colour_hover,
                 score_menu = False
             elif information:
                 information = False
+            elif store_menu:
+                store_menu = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         home_pressed = False
@@ -641,6 +659,13 @@ def pause_menu():
 
 def info_menu():
     arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT / 2 + 100, 810 * 1.75, 563 * 1.75, info_text)
+
+
+def shop_menu():
+    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 125, 378, 176, shop_title)
+    arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60, arcade.color.LIGHT_GRAY)
+    arcade.draw_texture_rectangle(WIDTH - 205, HEIGHT - 75, 50, 50, coin)
+    arcade.draw_text('1234', WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
 
 
 if __name__ == '__main__':
