@@ -62,7 +62,7 @@ instructions = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
                                    'instructions.png', 0, 0, 702, 262)
 
 info_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                  'information.png', 0, 0, 810, 563)
+                                'information.png', 0, 0, 810, 563)
 
 planes = [plane1, plane2, plane3, plane4]
 # Global Variables -----------------------------------------------------------------------------------------------------
@@ -643,4 +643,3 @@ def info_menu():
 
 if __name__ == '__main__':
     setup()
-
