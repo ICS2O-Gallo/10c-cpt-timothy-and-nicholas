@@ -212,10 +212,12 @@ def on_mouse_motion(x, y, dx, dy):
 def draw_background(scroll_speed):
     global x_background, scroll_left, scroll_right
     background = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                               'title screen background.jpg', 1, 0, 0, 3200, 960, x_background, HEIGHT / 2, HEIGHT / 2)
+                               'title screen background.jpg', 1, 0, 0, 3200, 960,
+                               x_background, HEIGHT / 2, HEIGHT / 2)
     background.draw()
     background2 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                'title screen background.jpg', 1, 0, 0, 3200, 960, x_background + WIDTH, HEIGHT / 2, HEIGHT / 2)
+                                'title screen background.jpg', 1, 0, 0, 3200, 960,
+                                x_background + WIDTH, HEIGHT / 2, HEIGHT / 2)
     background2.draw()
     x_background -= scroll_speed
     if x_background == -800:
