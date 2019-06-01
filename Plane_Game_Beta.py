@@ -7,18 +7,6 @@ HEIGHT = 960
 
 # Loading Textures -----------------------------------------------------------------------------------------------------
 
-title_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                 'title.png', 0, 0, 505, 150)
-
-background = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
-                                 'title screen background.jpg', 0, 0, 3194, 1200)
-
-bird = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                           'bird.png', 0, 0, 1200, 1200)
-
-plane = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                            'plane.png', 0, 0, 420, 420)
-
 start = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
                             'start.png', 0, 0, 250, 90)
 
@@ -28,49 +16,15 @@ highscores = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
 shop = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
                            'shop.png', 0, 0, 520, 459)
 
-score_title = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                  'leaderboard.tiff', 0, 0, 590, 190)
-
 home = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
                            'home.png', 0, 0, 512, 512)
 
 reset = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
                             'reset.png', 0, 0, 420, 420)
 
-gameover = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                               'gameover.png', 0, 0, 495, 170)
-
-plane1 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
-                             'planecrash1.png', 0, 0, 1458, 1000)
-
-plane2 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
-                             'planecrash2.png', 0, 0, 1458, 1000)
-
-plane3 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
-                             'planecrash3.png', 0, 0, 1458, 1000)
-
-plane4 = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
-                             'planecrash4.png', 0, 0, 1458, 1000)
-
-pause_background = arcade.load_texture('assets' + os.sep + 'backgrounds' + os.sep +
-                                       'pause_background.png', 0, 0, 1600, 900)
-
-pause_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                 'game_paused.tiff', 0, 0, 649, 227)
-
 instructions = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
                                    'instructions.png', 0, 0, 702, 262)
 
-info_text = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                'information.png', 0, 0, 810, 563)
-
-shop_title = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                 'shoptitle.tiff', 0, 0, 189, 88)
-
-coin = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                           'coin.tiff', 0, 0, 580, 580)
-
-planes = [plane1, plane2, plane3, plane4]
 # Global Variables -----------------------------------------------------------------------------------------------------
 
 bird_pos = [
@@ -257,9 +211,12 @@ def on_mouse_motion(x, y, dx, dy):
 
 def draw_background(scroll_speed):
     global x_background, scroll_left, scroll_right
-
-    arcade.draw_texture_rectangle(x_background, HEIGHT / 2, WIDTH, HEIGHT, background)
-    arcade.draw_texture_rectangle(x_background + WIDTH, HEIGHT / 2, WIDTH, HEIGHT, background)
+    background = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                               'title screen background.jpg', 1, 0, 0, 3200, 960, x_background, HEIGHT / 2, HEIGHT / 2)
+    background.draw()
+    background2 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                                'title screen background.jpg', 1, 0, 0, 3200, 960, x_background + WIDTH, HEIGHT / 2, HEIGHT / 2)
+    background2.draw()
     x_background -= scroll_speed
     if x_background == -800:
         x_background = 800
@@ -268,7 +225,9 @@ def draw_background(scroll_speed):
 def birds():
     global bird_pos, bird_shift_y, bird_down, bird_up
     for pos in range(len(bird_pos)):
-        arcade.draw_texture_rectangle(bird_pos[pos][0], bird_pos[pos][1] + bird_shift_y, 100, 100, bird)
+        bird = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
+                             'bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0], bird_pos[pos][1] + bird_shift_y)
+        bird.draw()
     if bird_shift_y == 20:
         bird_down = True
         bird_up = False
@@ -283,7 +242,9 @@ def birds():
 
 def title_plane():
     global plane_y, plane_up, plane_down
-    arcade.draw_texture_rectangle(plane_x, plane_y, 100, 100, plane)
+    plane = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
+                          'plane.png', 1, 0, 0, 100, 100, plane_x, plane_y)
+    plane.draw()
     if frame_time % 60 == 0:
         if random.randint(0, 1) == 1:
             plane_down = True
@@ -304,7 +265,9 @@ def title_plane():
 
 
 def title():
-    arcade.draw_texture_rectangle(WIDTH / 2, 500, 800, 268, title_text)
+    title_text = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
+                               'title.png', 1, 0, 0, 800, 500, 800, 500)
+    title_text.draw()
 
 
 def draw_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
@@ -520,7 +483,9 @@ def plane_game_draw():
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
-    arcade.draw_texture_rectangle(250, game_y_plane, 100, 100, plane)
+    plane = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
+                          'plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
+    plane.draw()
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
 
 
@@ -570,7 +535,9 @@ def plane_game_logic():
 
 
 def scores_menu():
-    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 160, 590, 190, score_title)
+    score_title = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
+                                      'leaderboard.tiff', 1, 0, 0, 590, 190, WIDTH / 2, HEIGHT - 160)
+    score_title.draw()
     height = 700
     scores_read = open('scores.txt', 'r')
     scores_save = []
@@ -614,7 +581,19 @@ def game_start():
 
 def game_over_background():
     global game_over_frametime, game_over_animation
-    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT, planes[game_over_animation])
+    plane1 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                                 'planecrash1.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+
+    plane2 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                                 'planecrash2.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+
+    plane3 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                                 'planecrash3.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+
+    plane4 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                                 'planecrash4.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    planes = [plane1, plane2, plane3, plane4]
+    planes[game_over_animation].draw()
 
     if game_over_frametime % 15 == 0 and game_over_frametime != 0:
         game_over_animation += 1
@@ -626,7 +605,9 @@ def game_over_background():
 
 def game_over():
     game_over_background()
-    arcade.draw_texture_rectangle(WIDTH / 2 + 20, HEIGHT - 160, 495, 170, gameover)
+    gameover = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
+                                   'gameover.png', 1, 0, 0, 495, 170, WIDTH / 2 + 20, HEIGHT - 160)
+    gameover.draw()
     draw_restart_button(WIDTH / 2, 500, 100, 100, arcade.color.ORANGE, reset,
                         arcade.color.GOLD, arcade.color.YELLOW)
     draw_game_main_menu_button(WIDTH / 2, 350, 100, 100, arcade.color.RED, home,
@@ -636,22 +617,34 @@ def game_over():
 
 
 def pause_menu():
-    arcade.draw_xywh_rectangle_textured(0, 0, WIDTH, HEIGHT, pause_background, 0, 100)
-    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 200, 649, 227, pause_text)
+    pause_text = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
+                                     'game_paused.tiff', 1, 0, 0, 649, 227, WIDTH / 2, HEIGHT - 200)
+    pause_text.draw()
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
-    arcade.draw_texture_rectangle(250, game_y_plane, 100, 100, plane)
+    plane = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
+                          'plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
+    plane.draw()
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
+    pause_background = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
+                                     'pause_background.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    pause_background.draw()
 
 
 def info_menu():
-    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT / 2 + 100, 810 * 1.75, 563 * 1.75, info_text)
+    info_text = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
+                              'information.png', 1, 0, 0, 1418, 985, WIDTH / 2, HEIGHT / 2 + 100)
+    info_text.draw()
 
 
 def shop_menu():
-    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 125, 378, 176, shop_title)
+    shop_title = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
+                                     'shoptitle.tiff', 1, 0, 0, 378, 176, WIDTH / 2, HEIGHT - 125)
+    shop_title.draw()
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60, arcade.color.LIGHT_GRAY)
-    arcade.draw_texture_rectangle(WIDTH - 205, HEIGHT - 75, 50, 50, coin)
+    coin = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
+                         'coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
+    coin.draw()
     arcade.draw_text('1234', WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
 
 
