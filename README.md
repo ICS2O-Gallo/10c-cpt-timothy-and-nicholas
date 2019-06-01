@@ -123,6 +123,8 @@ You MUST also mirror these to the `on_key_release` function!
 
 • To ensure that the game runs at its optimal speed, ensure that your [power option](https://gyazo.com/01f2a91c68cab85950ac2ff14a191591) is set to **high performance** in windows.
 
+• If on a laptop, plugging it in to its AC adapter may also improve performance to match realtime.
+
 • Screen resolution must be at least 1600 x 900 pixels
 
 
