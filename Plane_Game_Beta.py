@@ -1,29 +1,22 @@
 import arcade
 import random
-import os
 
 WIDTH = 1600
 HEIGHT = 960
 
 # Loading Textures -----------------------------------------------------------------------------------------------------
 
-start = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                            'start.png', 0, 0, 250, 90)
+start = arcade.load_texture('assets/text/start.png', 0, 0, 250, 90)
 
-highscores = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                                 'scores.png', 0, 0, 244, 204)
+highscores = arcade.load_texture('assets/sprites/scores.png', 0, 0, 244, 204)
 
-shop = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                           'shop.png', 0, 0, 520, 459)
+shop = arcade.load_texture('assets/sprites/shop.png', 0, 0, 520, 459)
 
-home = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                           'home.png', 0, 0, 512, 512)
+home = arcade.load_texture('assets/sprites/home.png', 0, 0, 512, 512)
 
-reset = arcade.load_texture('assets' + os.sep + 'sprites' + os.sep +
-                            'reset.png', 0, 0, 420, 420)
+reset = arcade.load_texture('assets/sprites/reset.png', 0, 0, 420, 420)
 
-instructions = arcade.load_texture('assets' + os.sep + 'text' + os.sep +
-                                   'instructions.png', 0, 0, 702, 262)
+instructions = arcade.load_texture('assets/text/instructions.png', 0, 0, 702, 262)
 
 # Global Variables -----------------------------------------------------------------------------------------------------
 
