@@ -204,12 +204,10 @@ def on_mouse_motion(x, y, dx, dy):
 
 def draw_background(scroll_speed):
     global x_background, scroll_left, scroll_right
-    background = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                               'title screen background.jpg', 1, 0, 0, 3200, 960,
+    background = arcade.Sprite('assets/backgrounds/title screen background.jpg', 1, 0, 0, 3200, 960,
                                x_background, HEIGHT / 2, HEIGHT / 2)
     background.draw()
-    background2 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                'title screen background.jpg', 1, 0, 0, 3200, 960,
+    background2 = arcade.Sprite('assets/backgrounds/title screen background.jpg', 1, 0, 0, 3200, 960,
                                 x_background + WIDTH, HEIGHT / 2, HEIGHT / 2)
     background2.draw()
     x_background -= scroll_speed
@@ -220,8 +218,7 @@ def draw_background(scroll_speed):
 def birds():
     global bird_pos, bird_shift_y, bird_down, bird_up
     for pos in range(len(bird_pos)):
-        bird = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
-                             'bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0], bird_pos[pos][1] + bird_shift_y)
+        bird = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0], bird_pos[pos][1] + bird_shift_y)
         bird.draw()
     if bird_shift_y == 20:
         bird_down = True
@@ -237,8 +234,7 @@ def birds():
 
 def title_plane():
     global plane_y, plane_up, plane_down
-    plane = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
-                          'plane.png', 1, 0, 0, 100, 100, plane_x, plane_y)
+    plane = arcade.Sprite('assets/sprites/plane.png', 1, 0, 0, 100, 100, plane_x, plane_y)
     plane.draw()
     if frame_time % 60 == 0:
         if random.randint(0, 1) == 1:
@@ -260,8 +256,7 @@ def title_plane():
 
 
 def title():
-    title_text = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
-                               'title.png', 1, 0, 0, 800, 500, 800, 500)
+    title_text = arcade.Sprite('assets/text/title.png', 1, 0, 0, 800, 500, 800, 500)
     title_text.draw()
 
 
@@ -478,8 +473,7 @@ def plane_game_draw():
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
-    plane = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
-                          'plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
+    plane = arcade.Sprite('assets/sprites/plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
     plane.draw()
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
 
@@ -530,8 +524,7 @@ def plane_game_logic():
 
 
 def scores_menu():
-    score_title = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
-                                      'leaderboard.tiff', 1, 0, 0, 590, 190, WIDTH / 2, HEIGHT - 160)
+    score_title = arcade.Sprite('assets/text/leaderboard.tiff', 1, 0, 0, 590, 190, WIDTH / 2, HEIGHT - 160)
     score_title.draw()
     height = 700
     scores_read = open('scores.txt', 'r')
@@ -576,17 +569,13 @@ def game_start():
 
 def game_over_background():
     global game_over_frametime, game_over_animation
-    plane1 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                 'planecrash1.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    plane1 = arcade.Sprite('assets/backgrounds/planecrash1.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
 
-    plane2 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                 'planecrash2.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    plane2 = arcade.Sprite('assets/backgrounds/planecrash2.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
 
-    plane3 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                 'planecrash3.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    plane3 = arcade.Sprite('assets/backgrounds/planecrash3.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
 
-    plane4 = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                 'planecrash4.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    plane4 = arcade.Sprite('assets/backgrounds/planecrash4.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
     planes = [plane1, plane2, plane3, plane4]
     planes[game_over_animation].draw()
 
@@ -600,8 +589,7 @@ def game_over_background():
 
 def game_over():
     game_over_background()
-    gameover = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
-                                   'gameover.png', 1, 0, 0, 495, 170, WIDTH / 2 + 20, HEIGHT - 160)
+    gameover = arcade.Sprite('assets/text/gameover.png', 1, 0, 0, 495, 170, WIDTH / 2 + 20, HEIGHT - 160)
     gameover.draw()
     draw_restart_button(WIDTH / 2, 500, 100, 100, arcade.color.ORANGE, reset,
                         arcade.color.GOLD, arcade.color.YELLOW)
@@ -612,33 +600,27 @@ def game_over():
 
 
 def pause_menu():
-    pause_text = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
-                                     'game_paused.tiff', 1, 0, 0, 649, 227, WIDTH / 2, HEIGHT - 200)
+    pause_text = arcade.Sprite('assets/text/game_paused.tiff', 1, 0, 0, 649, 227, WIDTH / 2, HEIGHT - 200)
     pause_text.draw()
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
-    plane = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
-                          'plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
+    plane = arcade.Sprite('assets/sprites/plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
     plane.draw()
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
-    pause_background = arcade.Sprite('assets' + os.sep + 'backgrounds' + os.sep +
-                                     'pause_background.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
+    pause_background = arcade.Sprite('assets/backgrounds/pause_background.png', 1, 0, 0, WIDTH, HEIGHT, WIDTH / 2, HEIGHT / 2)
     pause_background.draw()
 
 
 def info_menu():
-    info_text = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
-                              'information.png', 1, 0, 0, 1418, 985, WIDTH / 2, HEIGHT / 2 + 100)
+    info_text = arcade.Sprite('assets/text/information.png', 1, 0, 0, 1418, 985, WIDTH / 2, HEIGHT / 2 + 100)
     info_text.draw()
 
 
 def shop_menu():
-    shop_title = arcade.Sprite('assets' + os.sep + 'text' + os.sep +
-                                     'shoptitle.tiff', 1, 0, 0, 378, 176, WIDTH / 2, HEIGHT - 125)
+    shop_title = arcade.Sprite('assets/text/shoptitle.tiff', 1, 0, 0, 378, 176, WIDTH / 2, HEIGHT - 125)
     shop_title.draw()
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60, arcade.color.LIGHT_GRAY)
-    coin = arcade.Sprite('assets' + os.sep + 'sprites' + os.sep +
-                         'coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
+    coin = arcade.Sprite('assets/sprites/coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
     coin.draw()
     arcade.draw_text('1234', WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
 
