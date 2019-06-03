@@ -47,12 +47,16 @@ Clicking on any of these buttons leads to their respective menus.
   • A buffer-zone equal to half of `WIDTH` is given to facilitate this transition. 
 
 • **Shop:** Furthest right, pressing this button will bring up the shop where upgrades can be purchased.
-  • Player balance will also be shown here
+  • Player balance will also be shown here on the top right
   
+## Currency
+> TBD
+
 ## Upgrades
 Intended for players who are interested in gaining the highest possible score, upgrades can be purchased with currency collected from playing the game.
 
 > UPGRADES TBD  
+
 
 ## Changing Controls
 For more experienced coders, controls can be easily changed in `Plane_Game_Beta.py` under the `on_key_press` and `on_key_release` functions.
@@ -121,9 +125,12 @@ You MUST also mirror these to the `on_key_release` function!
             
 # Performance Requirements:
 
-• To ensure that the game runs at its optimal speed, ensure that your [power option](https://gyazo.com/01f2a91c68cab85950ac2ff14a191591) is set to **high performance** in windows.
 
 • Screen resolution must be at least 1600 x 900 pixels
+
+• To ensure that the game runs at its optimal speed, ensure that your [power option](https://gyazo.com/01f2a91c68cab85950ac2ff14a191591) is set to **high performance** in windows.
+
+• If on a laptop, plugging it in to its AC adapter may also improve performance to match realtime.
 
 
 
