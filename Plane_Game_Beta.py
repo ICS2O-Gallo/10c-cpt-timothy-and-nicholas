@@ -69,10 +69,13 @@ too_many_pause = False
 information = False
 information_pressed = False
 store_menu = False
+coin_balance = 0
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
 star_y_positions = []
+coin_x_positions = []
+coin_y_positions = []
 game_y_plane = HEIGHT / 2
 keydown = False
 keyup = False
@@ -85,6 +88,12 @@ for i in range(10):
     game_y = random.randrange(HEIGHT)
     star_x_positions.append(game_x)
     star_y_positions.append(game_y)
+
+for i in range(5):
+    coin_x = random.randrange(WIDTH / 2, WIDTH * 2)
+    coin_y = random.randrange(HEIGHT)
+    coin_x_positions.append(coin_x)
+    coin_y_positions.append(coin_y)
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -471,16 +480,19 @@ def draw_information_button(x, y, width, height, colour_default, texture, colour
 
 def plane_game_draw():
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
+    plane = arcade.Sprite('assets/sprites/plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
+    arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
-    plane = arcade.Sprite('assets/sprites/plane.png', 1, 0, 0, 100, 100, 250, game_y_plane)
+    for x_coin, y_coin in zip(coin_x_positions, coin_y_positions):
+        draw_coin = arcade.Sprite('assets/sprites/coin.tiff', 25 / 580, 0, 0, 580, 580, x_coin, y_coin)
+        draw_coin.draw()
     plane.draw()
-    arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
 
 
 def plane_game_logic():
     global game_y_plane, boom, game_frametime, speed, main_menu, scores_save, dead, times_paused
-    global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions, game
+    global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions, game, coin_balance
     if not paused:
         game_frametime += 1
         for x_range in range(len(star_x_positions)):
@@ -494,14 +506,31 @@ def plane_game_logic():
         if game_y_plane <= HEIGHT - 50:
             if keyup:
                 game_y_plane += 8
+        for x_range in range(len(coin_x_positions)):
+            coin_x_positions[x_range] -= speed
+            if coin_x_positions[x_range] <= 0:
+                coin_y_positions[x_range] = random.randrange(0, HEIGHT)
+                coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
+            for star in range(len(star_x_positions)):
+                if (star_y_positions[star] + 13 >= coin_y_positions[x_range] >= star_y_positions[star] - 13) and (
+                        star_x_positions[star] + 13 >= coin_x_positions[x_range] >= star_x_positions[star] - 13):
+                    coin_y_positions[x_range] = random.randrange(0, HEIGHT)
+                    coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
+
         if game_frametime % 120 == 0 and game_frametime != 0:
             speed += 0.35
+        for detect in range(len(coin_x_positions)):
+            if ((212 <= coin_x_positions[detect] <= 296) and (
+                    coin_y_positions[detect] - 62 <= game_y_plane <= coin_y_positions[detect] + 62)):
+                coin_balance += 1
+                print(coin_balance)
+                coin_y_positions[detect] = random.randrange(0, HEIGHT)
+                coin_x_positions[detect] = random.randrange(WIDTH, WIDTH * 2)
         for detect in range(len(star_x_positions)):
             if ((200 <= star_x_positions[detect] <= 284) and (
                     star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50)) or \
                     ((300 >= star_x_positions[detect] >= 285) and (
                             star_y_positions[detect] - 22 <= game_y_plane <= star_y_positions[detect] + 22)):
-
                 scores = open('scores.txt', 'a')
                 scores.write(f'{str(game_frametime)}, \n')
                 scores.close()
@@ -512,7 +541,6 @@ def plane_game_logic():
                 keyup = False
                 boom = False
                 speed = 4
-
                 for i in range(10):
                     game_x = random.randrange(WIDTH / 2, WIDTH * 2)
                     game_y = random.randrange(HEIGHT)
@@ -622,7 +650,7 @@ def shop_menu():
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60, arcade.color.LIGHT_GRAY)
     coin = arcade.Sprite('assets/sprites/coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
     coin.draw()
-    arcade.draw_text('1234', WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
+    arcade.draw_text(str(coin_balance), WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
 
 
 if __name__ == '__main__':
