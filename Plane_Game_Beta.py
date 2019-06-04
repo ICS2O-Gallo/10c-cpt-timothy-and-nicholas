@@ -491,64 +491,13 @@ def plane_game_draw():
 
 
 def plane_game_logic():
-    global game_y_plane, boom, game_frametime, speed, main_menu, scores_save, dead, times_paused
-    global keyup, keydown, game_x, game_y, star_x_positions, star_y_positions, game, coin_balance
+    global speed, game_frametime
     if not paused:
         game_frametime += 1
-        for x_range in range(len(star_x_positions)):
-            star_x_positions[x_range] -= speed
-            if star_x_positions[x_range] <= 0:
-                star_y_positions[x_range] = random.randrange(0, HEIGHT)
-                star_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
-        if game_y_plane >= 50:
-            if keydown:
-                game_y_plane -= 8
-        if game_y_plane <= HEIGHT - 50:
-            if keyup:
-                game_y_plane += 8
-        for x_range in range(len(coin_x_positions)):
-            coin_x_positions[x_range] -= speed
-            if coin_x_positions[x_range] <= 0:
-                coin_y_positions[x_range] = random.randrange(0, HEIGHT)
-                coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
-            for star in range(len(star_x_positions)):
-                if (star_y_positions[star] + 13 >= coin_y_positions[x_range] >= star_y_positions[star] - 13) and (
-                        star_x_positions[star] + 13 >= coin_x_positions[x_range] >= star_x_positions[star] - 13):
-                    coin_y_positions[x_range] = random.randrange(0, HEIGHT)
-                    coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
-
+        coin_star_drawing()
         if game_frametime % 120 == 0 and game_frametime != 0:
             speed += 0.35
-        for detect in range(len(coin_x_positions)):
-            if ((212 <= coin_x_positions[detect] <= 296) and (
-                    coin_y_positions[detect] - 62 <= game_y_plane <= coin_y_positions[detect] + 62)):
-                coin_balance += 1
-                print(coin_balance)
-                coin_y_positions[detect] = random.randrange(0, HEIGHT)
-                coin_x_positions[detect] = random.randrange(WIDTH, WIDTH * 2)
-        for detect in range(len(star_x_positions)):
-            if ((200 <= star_x_positions[detect] <= 284) and (
-                    star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50)) or \
-                    ((300 >= star_x_positions[detect] >= 285) and (
-                            star_y_positions[detect] - 22 <= game_y_plane <= star_y_positions[detect] + 22)):
-                scores = open('scores.txt', 'a')
-                scores.write(f'{str(game_frametime)}, \n')
-                scores.close()
-                star_x_positions = []
-                star_y_positions = []
-                game_y_plane = HEIGHT / 2
-                keydown = False
-                keyup = False
-                boom = False
-                speed = 4
-                for i in range(10):
-                    game_x = random.randrange(WIDTH / 2, WIDTH * 2)
-                    game_y = random.randrange(HEIGHT)
-                    star_x_positions.append(game_x)
-                    star_y_positions.append(game_y)
-                dead = True
-                game = False
-                times_paused = 0
+        plane_collision()
 
 
 def scores_menu():
@@ -586,6 +535,71 @@ def scores_menu():
             height -= 70
     else:
         arcade.draw_text('No game progress is present', WIDTH / 2 - 180, HEIGHT / 2, arcade.color.BLACK, 24)
+
+
+def coin_star_drawing():
+    global game_y_plane
+    for x_range in range(len(star_x_positions)):
+        star_x_positions[x_range] -= speed
+        if star_x_positions[x_range] <= 0:
+            star_y_positions[x_range] = random.randrange(0, HEIGHT)
+            star_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
+    if game_y_plane >= 50:
+        if keydown:
+            game_y_plane -= 8
+    if game_y_plane <= HEIGHT - 50:
+        if keyup:
+            game_y_plane += 8
+    for x_range in range(len(coin_x_positions)):
+        coin_x_positions[x_range] -= speed
+        if coin_x_positions[x_range] <= 0:
+            coin_y_positions[x_range] = random.randrange(0, HEIGHT)
+            coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
+        for star in range(len(star_x_positions)):
+            if (star_y_positions[star] + 13 >= coin_y_positions[x_range] >= star_y_positions[star] - 13) and (
+                    star_x_positions[star] + 13 >= coin_x_positions[x_range] >= star_x_positions[star] - 13):
+                coin_y_positions[x_range] = random.randrange(0, HEIGHT)
+                coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
+
+
+def reset_stats():
+    global star_x_positions, star_y_positions, game_y_plane, keydown, keyup, boom, speed, dead
+    global game, times_paused
+    scores = open('scores.txt', 'a')
+    scores.write(f'{str(game_frametime)}, \n')
+    scores.close()
+    star_x_positions = []
+    star_y_positions = []
+    game_y_plane = HEIGHT / 2
+    keydown = False
+    keyup = False
+    boom = False
+    speed = 4
+    for i in range(10):
+        game_x = random.randrange(WIDTH / 2, WIDTH * 2)
+        game_y = random.randrange(HEIGHT)
+        star_x_positions.append(game_x)
+        star_y_positions.append(game_y)
+    dead = True
+    game = False
+    times_paused = 0
+
+
+def plane_collision():
+    global coin_balance
+    for detect in range(len(coin_x_positions)):
+        if ((212 <= coin_x_positions[detect] <= 296) and (
+                coin_y_positions[detect] - 62 <= game_y_plane <= coin_y_positions[detect] + 62)):
+            coin_balance += 1
+            print(coin_balance)
+            coin_y_positions[detect] = random.randrange(0, HEIGHT)
+            coin_x_positions[detect] = random.randrange(WIDTH, WIDTH * 2)
+    for detect in range(len(star_x_positions)):
+        if ((200 <= star_x_positions[detect] <= 284) and (
+                star_y_positions[detect] - 50 <= game_y_plane <= star_y_positions[detect] + 50)) or \
+                ((300 >= star_x_positions[detect] >= 285) and (
+                        star_y_positions[detect] - 22 <= game_y_plane <= star_y_positions[detect] + 22)):
+            reset_stats()
 
 
 def game_start():
