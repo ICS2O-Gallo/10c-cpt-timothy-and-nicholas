@@ -12,16 +12,13 @@ bird_pos = [
     [1100, 670]
 ]
 bird_shift_y = 0
-bird_down = False
+bird_down = False    # Only 1
 bird_up = True
 x_background = 800
-scroll_left = True
-scroll_right = False
 
 plane_x = 300
 plane_y = HEIGHT / 2
 plane_up = True
-plane_down = False
 
 mouse_x = 0
 mouse_y = 0
@@ -143,7 +140,7 @@ def setup():
 
 def update(delta_time):
     global frame_time
-    if main_menu:
+    if main_menu or score_menu or information or store_menu:
         frame_time += 1
     elif game:
         plane_game_logic()
@@ -238,7 +235,7 @@ def on_mouse_motion(x, y, dx, dy):
 
 
 def draw_background(scroll_speed):
-    global x_background, scroll_left, scroll_right
+    global x_background
     background.draw()
     background2.draw()
     x_background -= scroll_speed
@@ -269,27 +266,23 @@ def birds():
 
 
 def title_plane():
-    global plane_y, plane_up, plane_down
+    global plane_y, plane_up
     plane.draw()
     if frame_time % 60 == 0:
         if random.randint(0, 1) == 1:
-            plane_down = True
             plane_up = False
         else:
             plane_up = True
-            plane_down = False
-    if plane_down and plane_y > 53:
+    if not plane_up and plane_y > 53:
         plane_y -= 2
-        plane.center_y -= 2
     elif plane_up and plane_y < HEIGHT - 53:
         plane_y += 2
-        plane.center_y += 2
     if plane_y > HEIGHT - 53:
-        plane_down = True
+        plane_up = False
         plane_up = False
     elif plane_y < 53:
-        plane_down = False
         plane_up = True
+    plane.center_y = plane_y
 
 
 def title():
