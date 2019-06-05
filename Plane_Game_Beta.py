@@ -23,7 +23,6 @@ plane_y = HEIGHT / 2
 plane_up = True
 plane_down = False
 
-background_repetitions = 1
 mouse_x = 0
 mouse_y = 0
 
@@ -49,13 +48,12 @@ game = False
 main_menu = True
 dead = False
 paused = False
-prev_speed = 0
 times_paused = 0
-too_many_pause = False
 information = False
 information_pressed = False
 store_menu = False
 coin_balance = 0
+
 # Game Variables -------------------------------------------------------------------------------------------------------
 
 star_x_positions = []
@@ -65,7 +63,6 @@ coin_y_positions = []
 game_y_plane = HEIGHT / 2
 keydown = False
 keyup = False
-boom = False
 game_frametime = 0
 speed = 4
 
@@ -128,7 +125,7 @@ background2 = arcade.Sprite('assets/backgrounds/title screen background.jpg', 1,
 
 
 def setup():
-    arcade.open_window(WIDTH, HEIGHT, "Plane Game Pre-pree-reee")
+    arcade.open_window(WIDTH, HEIGHT, 'Plane Game')
     arcade.set_background_color(arcade.color.WHITE)
     arcade.schedule(update, 1 / 60)
 
@@ -195,7 +192,7 @@ def on_draw():
 
 
 def on_key_press(key, modifiers):
-    global keyup, keydown, dead, game, paused, times_paused, too_many_pause
+    global keyup, keydown, dead, game, paused, times_paused
     if game:
         if key == arcade.key.DOWN:
             keydown = True
@@ -256,7 +253,8 @@ def draw_background(scroll_speed):
 def birds():
     global bird_pos, bird_shift_y, bird_down, bird_up
     for pos in range(len(bird_pos)):
-        bird = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0], bird_pos[pos][1] + bird_shift_y)
+        bird = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0],
+                             bird_pos[pos][1] + bird_shift_y)
         bird.draw()
     if bird_shift_y == 20:
         bird_down = True
@@ -596,7 +594,7 @@ def plane_movement():
 
 
 def reset_stats():
-    global star_x_positions, star_y_positions, game_y_plane, keydown, keyup, boom, speed, dead
+    global star_x_positions, star_y_positions, game_y_plane, keydown, keyup, speed, dead
     global game, times_paused
     scores = open('scores.txt', 'a')
     scores.write(f'{str(game_frametime)}, \n')
@@ -606,7 +604,6 @@ def reset_stats():
     game_y_plane = HEIGHT / 2
     keydown = False
     keyup = False
-    boom = False
     speed = 4
     for i in range(10):
         game_x = random.randrange(WIDTH / 2, WIDTH * 2)
@@ -669,6 +666,9 @@ def pause_menu():
     pause_text.draw()
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
+    for x_coin, y_coin in zip(coin_x_positions, coin_y_positions):
+        draw_coin = arcade.Sprite('assets/sprites/coin.tiff', 25 / 580, 0, 0, 580, 580, x_coin, y_coin)
+        draw_coin.draw()
     plane.draw()
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20, arcade.color.WHITE)
     pause_background.draw()
