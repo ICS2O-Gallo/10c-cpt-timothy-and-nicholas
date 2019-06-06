@@ -1,10 +1,10 @@
 import arcade
 import random
 
+# Global Variables -----------------------------------------------------------------------------------------------------
 WIDTH = 1600
 HEIGHT = 960
 
-# Global Variables -----------------------------------------------------------------------------------------------------
 bird_pos = [
     [1200, 800],
     [1400, 720],
@@ -116,6 +116,16 @@ background = arcade.Sprite('assets/backgrounds/title screen background.jpg', 1, 
 background2 = arcade.Sprite('assets/backgrounds/title screen background.jpg', 1, 0, 0, 3200, 960,
                             x_background + 3200, HEIGHT / 2, HEIGHT / 2)
 
+title_text = arcade.Sprite('assets/text/title.png', 1, 0, 0, 800, 500, 800, 500)
+
+bird1 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[0][0],
+                     bird_pos[0][1] + bird_shift_y)
+
+bird2 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[1][0],
+                     bird_pos[1][1] + bird_shift_y)
+
+bird3 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[2][0],
+                     bird_pos[2][1] + bird_shift_y)
 # ----------------------------------------------------------------------------------------------------------------------
 
 
@@ -152,7 +162,6 @@ def on_draw():
         draw_background(0.5)
         title_plane()
         birds()
-        title()
         draw_button(813, 360, 300, 70, arcade.color.GREEN, start,
                     arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
         draw_shop_button(1078, 360, 150, 70, arcade.color.DARK_CYAN,
@@ -161,6 +170,7 @@ def on_draw():
                                 highscores, arcade.color.GRAY, arcade.color.LIGHT_GRAY)
         draw_information_button(813, 260, 300, 70,
                                 arcade.color.GOLDEN_POPPY, instructions, arcade.color.GOLD, arcade.color.ORANGE_PEEL)
+        title_text.draw()
     elif score_menu:
         draw_background(0.5)
         title_plane()
@@ -246,11 +256,10 @@ def draw_background(scroll_speed):
 
 
 def birds():
-    global bird_pos, bird_shift_y, bird_up
-    for pos in range(len(bird_pos)):
-        bird = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0],
-                             bird_pos[pos][1] + bird_shift_y)
-        bird.draw()
+    global bird_shift_y, bird_up
+    bird1.draw()
+    bird2.draw()
+    bird3.draw()
     if bird_shift_y == 20:
         bird_up = False
     elif bird_shift_y == -20:
@@ -259,7 +268,9 @@ def birds():
         bird_shift_y += 0.5
     else:
         bird_shift_y -= 0.5
-
+    bird1.center_y = bird_pos[0][1] + bird_shift_y
+    bird2.center_y = bird_pos[1][1] + bird_shift_y
+    bird3.center_y = bird_pos[2][1] + bird_shift_y
 
 def title_plane():
     global plane_y, plane_up
@@ -279,11 +290,6 @@ def title_plane():
     elif plane_y < 53:
         plane_up = True
     plane.center_y = plane_y
-
-
-def title():
-    title_text = arcade.Sprite('assets/text/title.png', 1, 0, 0, 800, 500, 800, 500)
-    title_text.draw()
 
 
 def draw_button(x, y, width, height, colour_default, texture, colour_hover, colour_press):
