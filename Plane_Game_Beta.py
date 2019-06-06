@@ -50,7 +50,6 @@ store_menu = False
 coin_balance = 0
 
 # Game Variables -------------------------------------------------------------------------------------------------------
-
 star_x_positions = []
 star_y_positions = []
 coin_x_positions = []
@@ -74,7 +73,6 @@ for i in range(5):
     coin_y_positions.append(coin_y)
 
 # Loading Textures -----------------------------------------------------------------------------------------------------
-
 start = arcade.load_texture('assets/text/start.png', 0, 0, 250, 90)
 
 highscores = arcade.load_texture('assets/sprites/scores.png', 0, 0, 244, 204)
