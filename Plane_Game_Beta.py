@@ -124,6 +124,12 @@ bird2 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_
 
 bird3 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[2][0],
                      bird_pos[2][1] + bird_shift_y)
+
+info_text = arcade.Sprite('assets/text/information.png', 1, 0, 0, 1418, 985, WIDTH / 2, HEIGHT / 2 + 100)
+
+shop_title = arcade.Sprite('assets/text/shoptitle.tiff', 1, 0, 0, 378, 176, WIDTH / 2, HEIGHT - 125)
+
+coin = arcade.Sprite('assets/sprites/coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
 # ----------------------------------------------------------------------------------------------------------------------
 
 
@@ -668,15 +674,12 @@ def pause_menu():
 
 
 def info_menu():
-    info_text = arcade.Sprite('assets/text/information.png', 1, 0, 0, 1418, 985, WIDTH / 2, HEIGHT / 2 + 100)
     info_text.draw()
 
 
 def shop_menu():
-    shop_title = arcade.Sprite('assets/text/shoptitle.tiff', 1, 0, 0, 378, 176, WIDTH / 2, HEIGHT - 125)
     shop_title.draw()
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60, arcade.color.LIGHT_GRAY)
-    coin = arcade.Sprite('assets/sprites/coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
     coin.draw()
     arcade.draw_text(str(coin_balance), WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
 
