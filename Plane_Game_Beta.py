@@ -5,14 +5,12 @@ WIDTH = 1600
 HEIGHT = 960
 
 # Global Variables -----------------------------------------------------------------------------------------------------
-
 bird_pos = [
     [1200, 800],
     [1400, 720],
     [1100, 670]
 ]
 bird_shift_y = 0
-bird_down = False    # Only 1
 bird_up = True
 x_background = 800
 
@@ -31,14 +29,15 @@ game_over_animation = 0
 start_click = False
 mouse_press = False
 mouse_release = False
+
 pressed = False
 shop_pressed = False
 high_scores_pressed = False
-
+game_main_menu_pressed = False
 home_pressed = False
 reset_pressed = True
 restart_pressed = False
-game_main_menu_pressed = False
+information_pressed = False
 
 score_menu = False
 game = False
@@ -47,7 +46,6 @@ dead = False
 paused = False
 times_paused = 0
 information = False
-information_pressed = False
 store_menu = False
 coin_balance = 0
 
@@ -248,20 +246,18 @@ def draw_background(scroll_speed):
 
 
 def birds():
-    global bird_pos, bird_shift_y, bird_down, bird_up
+    global bird_pos, bird_shift_y, bird_up
     for pos in range(len(bird_pos)):
         bird = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200, bird_pos[pos][0],
                              bird_pos[pos][1] + bird_shift_y)
         bird.draw()
     if bird_shift_y == 20:
-        bird_down = True
         bird_up = False
     elif bird_shift_y == -20:
-        bird_down = False
         bird_up = True
     if bird_up:
         bird_shift_y += 0.5
-    if bird_down:
+    else:
         bird_shift_y -= 0.5
 
 
