@@ -733,7 +733,7 @@ def shop_menu():
                      arcade.color.BLACK, 24)
     arcade.draw_text(f'Current Speed: {plane_speed:.2f} + ', WIDTH / 2 - 100,
                      315, arcade.color.BLACK, 24)
-    arcade.draw_text(f'{upgrade_speed:.2f}', WIDTH / 2 + 175, 315,
+    arcade.draw_text(f'{upgrade_speed:.2f}', WIDTH / 2 + 180, 315,
                      arcade.color.GREEN, 24)
     arcade.draw_text('Buy', WIDTH / 2 - 25, 235, arcade.color.BLACK, 28)
 
