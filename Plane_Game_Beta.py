@@ -47,9 +47,10 @@ paused = False
 times_paused = 0
 information = False
 store_menu = False
-coin_balance = 0
+coin_balance = 99999999999
 buy = False
 times_bought = 0
+cost = 10
 
 # Game Variables --------------------------------------------------------------
 star_x_positions = []
@@ -61,6 +62,10 @@ keydown = False
 keyup = False
 game_frametime = 0
 speed = 4
+if False:
+    plane_speed = 12  # read file | to be added later
+else:
+    plane_speed = 4
 
 for i in range(10):
     game_x = random.randrange(WIDTH / 2, WIDTH * 2)
@@ -150,8 +155,8 @@ shop_title = arcade.Sprite('assets/text/shoptitle.tiff', 1, 0, 0, 378, 176,
 coin = arcade.Sprite('assets/sprites/coin.tiff', 50 / 580, 0, 0, 580, 580,
                      WIDTH - 205, HEIGHT - 75)
 
-plane_part = arcade.Sprite('assets/sprites/elevator.png', 1, 0, 0, 800, 516,
-                           WIDTH / 2, HEIGHT / 2)
+plane_part = arcade.Sprite('assets/sprites/elevator.png', 0.5, 0, 0, 800, 516,
+                           WIDTH / 2, HEIGHT / 2 + 75)
 # -----------------------------------------------------------------------------
 
 
@@ -632,10 +637,10 @@ def plane_movement():
     global game_y_plane
     if game_y_plane >= 50:
         if keydown:
-            game_y_plane -= 8
+            game_y_plane -= plane_speed
     if game_y_plane <= HEIGHT - 50:
         if keyup:
-            game_y_plane += 8
+            game_y_plane += plane_speed
     plane.center_y = game_y_plane
 
 
@@ -733,27 +738,65 @@ def info_menu():
 
 
 def shop_menu():
+    global cost, upgrade_speed
+    cost = 10 * (1.15 ** times_bought)
+    upgrade_speed = 1 / (1.1 ** times_bought)
+
     shop_title.draw()
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60,
                                  arcade.color.LIGHT_GRAY)
     coin.draw()
     arcade.draw_text(str(coin_balance), WIDTH - 160, HEIGHT - 88,
                      arcade.color.BLACK, 24, font_name='arial', bold=True)
+    birch_colour = [255, 235, 208]
+    light_wood_colour = [168, 101, 9]
+    wood_pressed_colour = [133, 60, 8]
+    wood_colour = [161, 64, 5]
+    wood_backdrop_colour = [236, 160, 88]
+    arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 850, 516, birch_colour)
+    arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2 + 75, 600, 300,
+                                 wood_backdrop_colour)
+    draw_buy_button(WIDTH / 2, 250, 100, 50, light_wood_colour, wood_colour,
+                    wood_pressed_colour)
     plane_part.draw()
-    buy_button()
+    arcade.draw_text('Elevator Upgrade', WIDTH / 2 - 100, 365,
+                     arcade.color.BLACK, 24)
+    arcade.draw_text(f'Cost: {cost:.2f}', WIDTH / 2 - 100, 340,
+                     arcade.color.BLACK, 24)
+    arcade.draw_text(f'Current Speed: {plane_speed:.2f} + ', WIDTH / 2 - 100,
+                     315, arcade.color.BLACK, 24)
+    arcade.draw_text(f'{upgrade_speed:.2f}', WIDTH / 2 + 175, 315,
+                     arcade.color.GREEN, 24)
+    arcade.draw_text('Buy', WIDTH / 2 - 25, 235, arcade.color.BLACK, 28)
 
 
-def buy_button():
-    global speed, times_bought, coin_balance, buy
-    arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 800, 50,
-                                 arcade.color.BLUE_SAPPHIRE)
-    if mouse_y > 455 and mouse_y < 505 and mouse_x > 400 and mouse_x < 1200:
+def draw_buy_button(x, y, width, height, colour_default,
+                     colour_hover, colour_press):
+    global buy, plane_speed, times_bought, coin_balance
+    if mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
         buy = True
-        arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 800, 50,
-                                     arcade.color.LAVENDER_PURPLE)
-        times_bought += 1
-        speed /= (1.2 ** times_bought)
-        coin_balance -= 1.42 ** times_bought
+    elif mouse_x > x - (width / 2) and \
+            mouse_x < x + (width / 2) and \
+            mouse_y < y + (height / 2) and \
+            mouse_y > y - (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if buy:
+            buy = False
+            if coin_balance > cost:
+                plane_speed += upgrade_speed
+                times_bought += 1
+                coin_balance -= cost
+            else:
+                print('Can not afford')
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        buy = False
 
 
 if __name__ == '__main__':
