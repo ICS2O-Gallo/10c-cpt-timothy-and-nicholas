@@ -117,7 +117,7 @@ You MUST also mirror these to the `on_key_release` function!
         
           if key == arcade.key.S:
         
-             keydown = False
+             keyup = True
             
           if key == arcade.key.W:
         
