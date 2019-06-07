@@ -614,7 +614,7 @@ def plane_movement():
 
 def reset_stats():
     global star_x_positions, star_y_positions, game_y_plane, keydown, keyup,\
-        speed, dead
+        speed, dead, game_x, game_y
     global game, times_paused
     scores = open('scores.txt', 'a')
     scores.write(f'{str(game_frametime)}, \n')
