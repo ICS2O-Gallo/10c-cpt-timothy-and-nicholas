@@ -65,11 +65,11 @@ For more experienced coders, controls can be easily changed in `Plane_Game_Beta.
 
       if game:
     
-          global keyup, keydown
+          global keyup
         
           if key == arcade.key.DOWN:
         
-              keydown = True
+              keyup = False
             
           if key == arcade.key.UP:
         
@@ -91,11 +91,11 @@ Changing `arade.key.UP` follows the same principle.
 
       if game:
     
-          global keyup, keydown
+          global keyup
         
           if key == arcade.key.S:
         
-              keydown = True
+              keyup = False
             
           if key == arcade.key.W:
         
@@ -113,11 +113,11 @@ You MUST also mirror these to the `on_key_release` function!
 
       if game:
     
-          global keyup, keydown
+          global keyup
         
           if key == arcade.key.S:
         
-             keydown = False
+             keyup = True
             
           if key == arcade.key.W:
         
