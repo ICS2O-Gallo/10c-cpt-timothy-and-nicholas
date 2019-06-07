@@ -48,6 +48,8 @@ times_paused = 0
 information = False
 store_menu = False
 coin_balance = 0
+buy = False
+times_bought = 0
 
 # Game Variables -------------------------------------------------------------------------------------------------------
 star_x_positions = []
@@ -130,6 +132,8 @@ info_text = arcade.Sprite('assets/text/information.png', 1, 0, 0, 1418, 985, WID
 shop_title = arcade.Sprite('assets/text/shoptitle.tiff', 1, 0, 0, 378, 176, WIDTH / 2, HEIGHT - 125)
 
 coin = arcade.Sprite('assets/sprites/coin.tiff', 50 / 580, 0, 0, 580, 580, WIDTH - 205, HEIGHT - 75)
+
+plane_part = arcade.Sprite('assets/sprites/elevator.png', 1, 800, 516, 800, 516, WIDTH / 2, HEIGHT / 2)
 # ----------------------------------------------------------------------------------------------------------------------
 
 
@@ -682,7 +686,20 @@ def shop_menu():
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60, arcade.color.LIGHT_GRAY)
     coin.draw()
     arcade.draw_text(str(coin_balance), WIDTH - 160, HEIGHT - 88, arcade.color.BLACK, 24, font_name='arial', bold=True)
+    arcade.draw_texture_rectangle(WIDTH / 2, HEIGHT - 300, 800, 516, plane_part)
+    buy_button()
 
+
+def buy_button():
+    global speed, times_bought, coin_balance, buy
+    arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 800, 50, arcade.color.BLUE_SAPPHIRE)
+    if mouse_y > 455 and mouse_y < 505 and mouse_x > 400 and mouse_x < 1200:
+        buy = True
+        arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 800, 50, arcade.color.LAVENDER_PURPLE)
+        times_bought += 1
+        speed /= (1.2 ** times_bought)
+        coin_balance -= 1.42 ** times_bought
+    if     
 
 if __name__ == '__main__':
     setup()
