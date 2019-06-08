@@ -47,10 +47,17 @@ paused = False
 times_paused = 0
 information = False
 store_menu = False
-coin_balance = 9999999999999999
 buy = False
-times_bought = 0
 cost = 10
+
+shop_data = open('assets/stats/shop.txt', 'r')
+shop_data_temp = []
+for info in shop_data:
+    shop_data_temp.append(float(info.replace('\n', '')))
+plane_speed = shop_data_temp[0]
+times_bought = shop_data_temp[1]
+coin_balance = shop_data_temp[2]
+shop_data.close()
 
 # Game Variables --------------------------------------------------------------
 star_x_positions = []
@@ -62,10 +69,6 @@ keydown = False
 keyup = False
 game_frametime = 0
 speed = 4
-if False:
-    plane_speed = 12  # read file | to be added later
-else:
-    plane_speed = 7
 
 for i in range(10):
     game_x = random.randrange(WIDTH / 2, WIDTH * 2)
@@ -191,7 +194,7 @@ def on_draw():
         game_over()
     elif main_menu:
         draw_background(0.5)
-        title_plane()
+        draw_title_plane()
         birds()
         draw_button(813, 360, 300, 70, arcade.color.GREEN, start,
                     arcade.color.LIGHT_GREEN, arcade.color.FOREST_GREEN)
@@ -206,7 +209,7 @@ def on_draw():
         title_text.draw()
     elif score_menu:
         draw_background(0.5)
-        title_plane()
+        draw_title_plane()
         scores_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
                          arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
@@ -218,16 +221,18 @@ def on_draw():
         plane_game_draw()
     elif information:
         draw_background(0.5)
-        title_plane()
+        draw_title_plane()
         info_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
                          arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
     elif store_menu:
         draw_background(0.5)
-        title_plane()
+        draw_title_plane()
         shop_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
                          arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
+        draw_shop_reset_button(50, HEIGHT - 125, 50, 50, arcade.color.RED,
+                               reset, arcade.color.DARK_RED, arcade.color.PINK)
 
 
 def on_key_press(key, modifiers):
@@ -307,7 +312,7 @@ def birds():
     bird3.center_y = bird_pos[2][1] + bird_shift_y
 
 
-def title_plane():
+def draw_title_plane():
     global plane_y, plane_up
     plane.draw()
     if frame_time % 60 == 0:
@@ -435,7 +440,7 @@ def draw_reset_button(x, y, width, height, colour_default, texture,
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if reset_pressed:
             reset_pressed = False
-            scores_reset = open('scores.txt', 'w')
+            scores_reset = open('assets/stats/scores.txt', 'w')
             scores_reset.write("")
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
@@ -539,7 +544,7 @@ def plane_game_logic():
 def scores_menu():
     score_title.draw()
     height = 700
-    scores_read = open('scores.txt', 'r')
+    scores_read = open('assets/stats/scores.txt', 'r')
     scores_save = []
 
     for length in scores_read:
@@ -616,7 +621,7 @@ def reset_stats():
     global star_x_positions, star_y_positions, game_y_plane, keydown, keyup,\
         speed, dead, game_x, game_y
     global game, times_paused
-    scores = open('scores.txt', 'a')
+    scores = open('assets/stats/scores.txt', 'a')
     scores.write(f'{str(game_frametime)}, \n')
     scores.close()
     star_x_positions = []
@@ -685,6 +690,11 @@ def game_over():
                                  arcade.color.LIGHT_GRAY)
     arcade.draw_text(f'Score: {game_frametime}', WIDTH / 2 - 75, HEIGHT - 300,
                      arcade.color.BLACK, 24)
+    shop_data_temp[2] = coin_balance
+    shop_data = open('assets/stats/shop.txt', 'w')
+    for i in range(len(shop_data_temp)):
+        shop_data.write(f'{shop_data_temp[i]}\n')
+    shop_data.close()
 
 
 def pause_menu():
@@ -756,11 +766,46 @@ def draw_buy_button(x, y, width, height, colour_default,
                 plane_speed += upgrade_speed
                 times_bought += 1
                 coin_balance -= cost
+                shop_data_temp[0] = plane_speed
+                shop_data_temp[1] = times_bought
+                shop_data_temp[2] = coin_balance
+                shop_data = open('assets/stats/shop.txt', 'w')
+                for info in range(len(shop_data_temp)):
+                    shop_data.write(f'{shop_data_temp[info]}\n')
+                shop_data.close()
             else:
                 print('Can not afford')
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         buy = False
+
+
+def draw_shop_reset_button(x, y, width, height, colour_default, texture,
+                           colour_hover, colour_press):
+    global reset_pressed, plane_speed, times_bought, coin_balance
+    if x + (width / 2) > mouse_x > x - (width / 2) and \
+            y - (height / 2) < mouse_y < y + (height / 2) and \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        reset_pressed = True
+    elif x + (width / 2) > mouse_x > x - (width / 2) and \
+            y - (height / 2) < mouse_y < y + (height / 2) and not \
+            mouse_press:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        if reset_pressed:
+            reset_pressed = False
+            shop_data = open('assets/stats/shop.txt', 'w')
+            shop_data_temp = [7, 0, 0]
+            for info in range(len(shop_data_temp)):
+                shop_data.write(f'{shop_data_temp[info]}\n')
+            plane_speed = shop_data_temp[0]
+            times_bought = shop_data_temp[1]
+            coin_balance = shop_data_temp[2]
+            shop_data.close()
+    else:
+        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        reset_pressed = False
+    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
 
 
 if __name__ == '__main__':
