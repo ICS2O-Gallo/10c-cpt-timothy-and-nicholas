@@ -135,7 +135,7 @@ You MUST also mirror these to the `on_key_release` function!
 
 # Stats for Nerds
 
-• Graphs on the calculations behind shop pricing and speed upgrades can be found [here](https://www.desmos.com/calculator/aibnlk9qs6)
+• Graphs on the calculations behind shop pricing and speed upgrades can be found [here](https://www.desmos.com/calculator/xjoczpbfcc)
 
 • The highest plane speed that can be achieved is 17.999999999999986 pixels per frame, and occurs on the 357th upgrade! 
 It would come at a cost of 4,667,980,210,673,925,2074,891.5998 coins!
