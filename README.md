@@ -1,7 +1,7 @@
 # Plane Game
 ICS 2O1 CPT - Nicholas and Tim
 
-**Status:** Under development
+**Status:** Testing
 
 ## Info
 
@@ -41,13 +41,14 @@ Clicking on any of these buttons leads to their respective menus.
 
 • **Leaderboards:** The furthest left, this menu will show up to ten of a player's highest scores. Players can compete by comparing their highest scores with each other.
 
-  • A player may also clear their high scores list here.
+  • A player may also clear their high scores list here by clicking on the red reset button.
   
 • **Play:** Located in the middle, pressing this button launches Plane Game. After clicking on this button, the user should begin controlling their plane with the keyboard. 
   • A buffer-zone equal to half of `WIDTH` is given to facilitate this transition. 
 
 • **Shop:** Furthest right, pressing this button will bring up the shop where upgrades can be purchased.
   • Player balance will also be shown here on the top right
+  • Player progress (Coins, upgrades) can be reset here as well by clicking on the red reset button.
   
 ## Currency
 In order to gain currency, the player must try to maneuver their airplane to touch coins that are flying by. Be careful though! You won't want to touch a star by accident!
@@ -130,14 +131,14 @@ You MUST also mirror these to the `on_key_release` function!
 
 • To ensure that the game runs at its optimal speed, ensure that your [power option](https://gyazo.com/01f2a91c68cab85950ac2ff14a191591) is set to **high performance** in windows.
 
-• If on a laptop, plugging it in to its AC adapter may also improve performance to match realtime.
+• If on a laptop, plugging it in to its AC adapter may also improve performance to match realtime rendering.
 
 # Stats for Nerds
 
-• Graphs on the calculations behind shop pricing and speed upgrades can be found [here](https://www.desmos.com/calculator/aiwuojjqwh)
+• Graphs on the calculations behind shop pricing and speed upgrades can be found [here](https://www.desmos.com/calculator/aibnlk9qs6)
 
 • The highest plane speed that can be achieved is 17.999999999999986 pixels per frame, and occurs on the 357th upgrade! 
-It would come at a cost of 4,667,980,210,673,925,2074,891.599864930069167932569573241023 coins!
+It would come at a cost of 4,667,980,210,673,925,2074,891.5998 coins!
 
 (If you manage to get this point you've truly beaten the game, but probably cheated)
 
