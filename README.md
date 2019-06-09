@@ -124,7 +124,7 @@ You MUST also mirror these to the `on_key_release` function!
         
               keyup = False
             
-# Performance Requirements:
+## Performance Requirements:
 
 
 • Screen resolution must be at least 1600 x 900 pixels
@@ -133,7 +133,7 @@ You MUST also mirror these to the `on_key_release` function!
 
 • If on a laptop, plugging it in to its AC adapter may also improve performance to match realtime rendering.
 
-# Stats for Nerds
+## Stats for Nerds
 
 • Graphs on the calculations behind shop pricing and speed upgrades can be found [here](https://www.desmos.com/calculator/xjoczpbfcc)
 
