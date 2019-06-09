@@ -5,7 +5,7 @@ ICS 2O1 CPT - Nicholas and Tim
 
 ## Info
 
-  A pun on *plain* game, Plane Game is a side-scrolling game based off of PyArcade. The objective of the game is to travel the longest distance by avoiding or destroying obstacles. Players are encouraged to beat their previous high scores, which are stored in a non-volatile format, meaning that players can return to their game without losing their hard-fought records. As players progress in the level, the obstacles move faster! **How far can your plane go?** 
+  A pun on *plain* game, Plane Game is a side-scrolling game based off of PyArcade. The objective of the game is to travel the longest distance by avoiding stars and collecting coins for upgrades. Players are encouraged to beat their previous high scores, which are stored in a non-volatile format, meaning that players can return to their game without losing their hard-fought records. As players progress in the level, the obstacles move faster! **How far can your plane go?** 
 
 # Installation Instructions
 
