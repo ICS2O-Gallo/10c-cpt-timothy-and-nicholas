@@ -39,7 +39,7 @@ Plane game can be controlled with only two buttons.
 When entering the game, three buttons can be found. From left to right, these three buttons are: leaderboards, play, and shop.
 Clicking on any of these buttons leads to their respective menus. 
 
-• **Leaderboards:** The furthest left, this menu will show up to ten of a player's highest scores.
+• **Leaderboards:** The furthest left, this menu will show up to ten of a player's highest scores. Players can compete by comparing their highest scores with each other.
 
   • A player may also clear their high scores list here.
   
@@ -50,12 +50,12 @@ Clicking on any of these buttons leads to their respective menus.
   • Player balance will also be shown here on the top right
   
 ## Currency
-> TBD
+In order to gain currency, the player must try to maneuver their airplane to touch coins that are flying by. Be careful though! You won't want to touch a star by accident!
 
 ## Upgrades
-Intended for players who are interested in gaining the highest possible score, upgrades can be purchased with currency collected from playing the game.
+Intended for players who are interested in gaining the highest possible score, upgrades can be purchased with currency collected from playing the game. To purchase the **elevator upgrade**, click on the store icon. Here, you will be able to purchase the elevator upgrade if you have the specified amount of coins. Players are highly encouraged to purchase upgrades in order to increase the skill cap of the game.
 
-> UPGRADES TBD  
+• Upgrades get more expensive and increase the vertical speed of the plane less and less as more upgrades are purchased. More information on the calculations can be found at the bottom of this document.
 
 
 ## Changing Controls
@@ -131,6 +131,15 @@ You MUST also mirror these to the `on_key_release` function!
 • To ensure that the game runs at its optimal speed, ensure that your [power option](https://gyazo.com/01f2a91c68cab85950ac2ff14a191591) is set to **high performance** in windows.
 
 • If on a laptop, plugging it in to its AC adapter may also improve performance to match realtime.
+
+# Stats for Nerds
+
+• Graphs on the calculations behind shop pricing and speed upgrades can be found [here](https://www.desmos.com/calculator/aiwuojjqwh)
+
+• The highest plane speed that can be achieved is 17.999999999999986 pixels per frame, and occurs on the 357th upgrade! 
+It would come at a cost of 4,667,980,210,673,925,2074,891.599864930069167932569573241023 coins!
+
+(If you manage to get this point you've truly beaten the game, but probably cheated)
 
 
 
