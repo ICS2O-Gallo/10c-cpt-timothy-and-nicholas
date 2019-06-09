@@ -784,7 +784,8 @@ def draw_buy_button(x, y, width, height, colour_default,
                 shop_data_temp[0] = plane_speed
                 shop_data_temp[1] = times_bought
                 shop_data_temp[2] = coin_balance
-                to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
+                to_hash = f'{plane_speed + times_bought + coin_balance},' \
+                    f' {secret_key}'
                 pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
                 shop_data_temp[3] = pre_hash.hexdigest()
                 shop_data = open('assets/stats/shop.txt', 'w')
@@ -816,7 +817,8 @@ def draw_shop_reset_button(x, y, width, height, colour_default, texture,
             plane_speed = shop_data_temp[0]
             times_bought = shop_data_temp[1]
             coin_balance = shop_data_temp[2]
-            to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
+            to_hash = f'{plane_speed + times_bought + coin_balance},' \
+                f' {secret_key}'
             pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
             shop_data_temp.append(pre_hash.hexdigest())
             shop_data = open('assets/stats/shop.txt', 'w')
