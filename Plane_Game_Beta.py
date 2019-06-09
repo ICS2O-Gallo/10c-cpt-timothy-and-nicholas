@@ -1,5 +1,6 @@
 import arcade
 import random
+import hashlib
 
 # Global Variables ------------------------------------------------------------
 WIDTH = 1600
@@ -52,11 +53,25 @@ cost = 10
 shop_data = open('assets/stats/shop.txt', 'r')
 shop_data_temp = []
 for info in shop_data:
-    shop_data_temp.append(float(info.replace('\n', '')))
-plane_speed = shop_data_temp[0]
-times_bought = shop_data_temp[1]
-coin_balance = shop_data_temp[2]
+    shop_data_temp.append(info.replace('\n', ''))
+plane_speed = float(shop_data_temp[0])
+times_bought = float(shop_data_temp[1])
+coin_balance = float(shop_data_temp[2])
+proposed_hash = shop_data_temp[3]
 shop_data.close()
+
+secret_key = 'Monty Python'
+to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
+pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
+actual_hash = pre_hash.hexdigest()
+print(actual_hash)
+print(proposed_hash)
+
+if proposed_hash == actual_hash:
+    print('SHA-512 Verified')
+else:
+    print('Corrupt or illegitimate')
+
 
 # Game Variables --------------------------------------------------------------
 star_x_positions = []
@@ -688,6 +703,9 @@ def game_over():
     arcade.draw_text(f'Score: {game_frametime}', WIDTH / 2 - 75, HEIGHT - 300,
                      arcade.color.BLACK, 24)
     shop_data_temp[2] = coin_balance
+    to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
+    pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
+    shop_data_temp[3] = pre_hash.hexdigest()
     shop_data = open('assets/stats/shop.txt', 'w')
     for i in range(len(shop_data_temp)):
         shop_data.write(f'{shop_data_temp[i]}\n')
@@ -766,12 +784,15 @@ def draw_buy_button(x, y, width, height, colour_default,
                 shop_data_temp[0] = plane_speed
                 shop_data_temp[1] = times_bought
                 shop_data_temp[2] = coin_balance
+                to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
+                pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
+                shop_data_temp[3] = pre_hash.hexdigest()
                 shop_data = open('assets/stats/shop.txt', 'w')
                 for info in range(len(shop_data_temp)):
                     shop_data.write(f'{shop_data_temp[info]}\n')
                 shop_data.close()
             else:
-                print('Can not afford')
+                print('Can not afford (You cannot have 0 balance!)')
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         buy = False
@@ -791,14 +812,18 @@ def draw_shop_reset_button(x, y, width, height, colour_default, texture,
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if reset_pressed:
             reset_pressed = False
-            shop_data = open('assets/stats/shop.txt', 'w')
-            shop_data_temp = [7, 0, 0]
-            for info in range(len(shop_data_temp)):
-                shop_data.write(f'{shop_data_temp[info]}\n')
+            shop_data_temp = [7.0, 0.0, 0.0]
             plane_speed = shop_data_temp[0]
             times_bought = shop_data_temp[1]
             coin_balance = shop_data_temp[2]
+            to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
+            pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
+            shop_data_temp.append(pre_hash.hexdigest())
+            shop_data = open('assets/stats/shop.txt', 'w')
+            for info in range(len(shop_data_temp)):
+                shop_data.write(f'{shop_data_temp[info]}\n')
             shop_data.close()
+
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         reset_pressed = False
