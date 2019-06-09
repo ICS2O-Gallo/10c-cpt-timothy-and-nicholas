@@ -26,7 +26,6 @@ frame_time = 0
 game_over_frametime = 0
 game_over_animation = 0
 
-start_click = False
 mouse_press = False
 mouse_release = False
 
@@ -647,7 +646,6 @@ def plane_collision():
                 coin_y_positions[detect] - 62 <= game_y_plane <=
                 coin_y_positions[detect] + 62)):
             coin_balance += 1
-            print(coin_balance)
             coin_y_positions[detect] = random.randrange(0, HEIGHT)
             coin_x_positions[detect] = random.randrange(WIDTH, WIDTH * 2)
     for detect in range(len(star_x_positions)):
@@ -664,7 +662,6 @@ def game_start():
     global main_menu, game
     main_menu = False
     game = True
-    print('game started')
 
 
 def game_over_background():
