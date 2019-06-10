@@ -15,8 +15,6 @@ bird_shift_y = 0
 bird_up = True
 x_background = 800
 
-plane_x = 300
-plane_y = HEIGHT / 2
 plane_up = True
 
 mouse_x = 0
@@ -24,7 +22,6 @@ mouse_y = 0
 
 frame_time = 0
 
-game_over_frametime = 0
 game_over_animation = 0
 
 mouse_press = False
@@ -140,7 +137,7 @@ score_title = arcade.Sprite('assets/text/leaderboard.tiff', 1, 0, 0, 590, 190,
                             WIDTH / 2, HEIGHT - 160)
 
 title_plane = arcade.Sprite('assets/sprites/plane.png', 1, 0, 0, 100, 100,
-                            plane_x, plane_y)
+                            300, HEIGHT / 2)
 
 background = arcade.Sprite('assets/backgrounds/title screen background.jpg', 1,
                            0, 0, 3200, 960, x_background, HEIGHT / 2,
@@ -326,22 +323,21 @@ def birds():
 
 
 def draw_title_plane():
-    global plane_y, plane_up
+    global plane_up
     plane.draw()
     if frame_time % 60 == 0:
         if random.randint(0, 1) == 1:
             plane_up = False
         else:
             plane_up = True
-    if not plane_up and plane_y > 53:
-        plane_y -= 2
-    elif plane_up and plane_y < HEIGHT - 53:
-        plane_y += 2
-    if plane_y > HEIGHT - 53:
+    if not plane_up and plane.center_y > 53:
+        plane.center_y -= 2
+    elif plane_up and plane.center_y < HEIGHT - 53:
+        plane.center_y += 2
+    if plane.center_y > HEIGHT - 53:
         plane_up = False
-    elif plane_y < 53:
+    elif plane.center_y < 53:
         plane_up = True
-    plane.center_y = plane_y
 
 
 def draw_button(x, y, width, height, colour_default, texture, colour_hover,
