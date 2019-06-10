@@ -28,9 +28,8 @@ game_over_frametime = 0
 game_over_animation = 0
 
 mouse_press = False
-mouse_release = False
 
-pressed = False
+game_pressed = False
 shop_pressed = False
 high_scores_pressed = False
 game_main_menu_pressed = False
@@ -348,22 +347,22 @@ def draw_title_plane():
 
 def draw_button(x, y, width, height, colour_default, texture, colour_hover,
                 colour_press):
-    global pressed
+    global game_pressed
     if x + (width / 2) > mouse_x > x - (width / 2) and \
             y - (height / 2) < mouse_y < y + (height / 2) and \
             mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_press)
-        pressed = True
+        game_pressed = True
     elif x + (width / 2) > mouse_x > x - (width / 2) and \
             y - (height / 2) < mouse_y < y + (height / 2) and not \
             mouse_press:
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
-        if pressed:
+        if game_pressed:
             game_start()
-            pressed = False
+            game_pressed = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
-        pressed = False
+        game_pressed = False
     arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
 
 
@@ -680,15 +679,15 @@ def game_start():
 
 
 def game_over_background():
-    global game_over_frametime, game_over_animation
+    global frame_time, game_over_animation
     planes[game_over_animation].draw()
 
-    if game_over_frametime % 15 == 0 and game_over_frametime != 0:
+    if frame_time % 15 == 0 and game_over_frametime != 0:
         game_over_animation += 1
 
     if game_over_animation == 4:
         game_over_animation = 0
-    game_over_frametime += 1
+    frame_time += 1
 
 
 def game_over():
