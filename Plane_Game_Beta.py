@@ -326,6 +326,7 @@ def birds():
         else:
             bird.center_y = bird_pos[2][1] + bird_shift_y
 
+
 def draw_title_plane():
     global plane_up
     plane.draw()
@@ -573,11 +574,11 @@ def scores_menu():
             elif i == 2:
                 colour = arcade.color.BRONZE
             arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                WIDTH / 2, height, colour, 24)
+                             WIDTH / 2, height, colour, 24)
             height -= 70
     else:
         arcade.draw_text('No game progress is present', WIDTH / 2 - 180,
-        HEIGHT / 2, arcade.color.BLACK, 24)
+                         HEIGHT / 2, arcade.color.BLACK, 24)
 
 
 def coin_star_drawing():
