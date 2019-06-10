@@ -23,6 +23,7 @@ mouse_y = 0
 frame_time = 0
 
 game_over_animation = 0
+game_over_frametime = 0
 
 mouse_press = False
 
@@ -674,7 +675,7 @@ def game_start():
 
 
 def game_over_background():
-    global frame_time, game_over_animation
+    global frame_time, game_over_animation, game_over_frametime
     planes[game_over_animation].draw()
 
     if frame_time % 15 == 0 and game_over_frametime != 0:
@@ -683,7 +684,7 @@ def game_over_background():
     if game_over_animation == 4:
         game_over_animation = 0
     frame_time += 1
-
+    game_over_frametime += 1
 
 def game_over():
     game_over_background()
