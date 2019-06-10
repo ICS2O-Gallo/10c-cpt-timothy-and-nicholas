@@ -68,6 +68,18 @@ if proposed_hash == actual_hash:
     print('SHA-512 Verified')
 else:
     print('Corrupt or illegitimate')
+    reset_pressed = False
+    shop_data_temp = [7.0, 0.0, 0.0]
+    plane_speed = shop_data_temp[0]
+    times_bought = shop_data_temp[1]
+    coin_balance = shop_data_temp[2]
+    to_hash = f'{plane_speed + times_bought + coin_balance},' f' {secret_key}'
+    pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
+    shop_data_temp.append(pre_hash.hexdigest())
+    shop_data = open('playerdata/shop.txt', 'w')
+    for info in range(len(shop_data_temp)):
+        shop_data.write(f'{shop_data_temp[info]}\n')
+    shop_data.close()
 
 
 # Game Variables --------------------------------------------------------------
