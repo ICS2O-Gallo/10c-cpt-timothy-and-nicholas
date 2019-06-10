@@ -47,7 +47,7 @@ store_menu = False
 buy = False
 cost = 10
 
-shop_data = open('assets/stats/shop.txt', 'r')
+shop_data = open('playerdata/shop.txt', 'r')
 shop_data_temp = []
 for info in shop_data:
     shop_data_temp.append(info.replace('\n', ''))
@@ -449,7 +449,7 @@ def draw_reset_button(x, y, width, height, colour_default, texture,
         arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
         if reset_pressed:
             reset_pressed = False
-            scores_reset = open('assets/stats/scores.txt', 'w')
+            scores_reset = open('playerdata/scores.txt', 'w')
             scores_reset.write("")
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
@@ -553,46 +553,28 @@ def plane_game_logic():
 def scores_menu():
     score_title.draw()
     height = 700
-    scores_read = open('assets/stats/scores.txt', 'r')
+    scores_read = open('playerdata/scores.txt', 'r')
     scores_save = []
 
     for length in scores_read:
         scores_save.append(int(length.replace(', \n', '')))
     scores_read.close()
     scores_save.sort(reverse=True)
-    if 10 > len(scores_save) != 0:
-        for i in range(len(scores_save)):
+    if scores_save:
+        for i in range(min(len(scores_save), 10)):
+            colour = arcade.color.BLACK
             if i == 0:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.GOLD, 24)
+                colour = arcade.color.GOLD
             elif i == 1:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.SILVER, 24)
+                colour = arcade.color.SILVER
             elif i == 2:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.BRONZE, 24)
-            else:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.BLACK, 24)
-            height -= 70
-    elif len(scores_save) >= 10:
-        for i in range(10):
-            if i == 0:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.GOLD, 24)
-            elif i == 1:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.SILVER, 24)
-            elif i == 2:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.BRONZE, 24)
-            else:
-                arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                                 WIDTH / 2, height, arcade.color.BLACK, 24)
+                colour = arcade.color.BRONZE
+            arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
+                WIDTH / 2, height, colour, 24)
             height -= 70
     else:
         arcade.draw_text('No game progress is present', WIDTH / 2 - 180,
-                         HEIGHT / 2, arcade.color.BLACK, 24)
+        HEIGHT / 2, arcade.color.BLACK, 24)
 
 
 def coin_star_drawing():
@@ -630,7 +612,7 @@ def reset_stats():
     global star_x_positions, star_y_positions, game_y_plane, keydown, keyup,\
         speed, dead, game_x, game_y
     global game, times_paused
-    scores = open('assets/stats/scores.txt', 'a')
+    scores = open('playerdata/scores.txt', 'a')
     scores.write(f'{str(game_frametime)}, \n')
     scores.close()
     star_x_positions = []
@@ -686,6 +668,7 @@ def game_over_background():
     frame_time += 1
     game_over_frametime += 1
 
+
 def game_over():
     game_over_background()
     gameover.draw()
@@ -701,7 +684,7 @@ def game_over():
     to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
     pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
     shop_data_temp[3] = pre_hash.hexdigest()
-    shop_data = open('assets/stats/shop.txt', 'w')
+    shop_data = open('playerdata/shop.txt', 'w')
     for i in range(len(shop_data_temp)):
         shop_data.write(f'{shop_data_temp[i]}\n')
     shop_data.close()
@@ -783,7 +766,7 @@ def draw_buy_button(x, y, width, height, colour_default,
                     f' {secret_key}'
                 pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
                 shop_data_temp[3] = pre_hash.hexdigest()
-                shop_data = open('assets/stats/shop.txt', 'w')
+                shop_data = open('playerdata/shop.txt', 'w')
                 for info in range(len(shop_data_temp)):
                     shop_data.write(f'{shop_data_temp[info]}\n')
                 shop_data.close()
@@ -816,7 +799,7 @@ def draw_shop_reset_button(x, y, width, height, colour_default, texture,
                 f' {secret_key}'
             pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
             shop_data_temp.append(pre_hash.hexdigest())
-            shop_data = open('assets/stats/shop.txt', 'w')
+            shop_data = open('playerdata/shop.txt', 'w')
             for info in range(len(shop_data_temp)):
                 shop_data.write(f'{shop_data_temp[info]}\n')
             shop_data.close()
