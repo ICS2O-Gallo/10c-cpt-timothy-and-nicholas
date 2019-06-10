@@ -159,6 +159,7 @@ bird2 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200,
 
 bird3 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200,
                       bird_pos[2][0], bird_pos[2][1] + bird_shift_y)
+wingulls = [bird1, bird2, bird3]
 
 info_text = arcade.Sprite('assets/text/information.png', 1, 0, 0, 1418, 985,
                           WIDTH / 2, HEIGHT / 2 + 100)
@@ -307,9 +308,8 @@ def draw_background(scroll_speed):
 
 def birds():
     global bird_shift_y, bird_up
-    bird1.draw()
-    bird2.draw()
-    bird3.draw()
+    for bird in wingulls:
+        bird.draw()
     if bird_shift_y == 20:
         bird_up = False
     elif bird_shift_y == -20:
@@ -318,10 +318,13 @@ def birds():
         bird_shift_y += 0.5
     else:
         bird_shift_y -= 0.5
-    bird1.center_y = bird_pos[0][1] + bird_shift_y
-    bird2.center_y = bird_pos[1][1] + bird_shift_y
-    bird3.center_y = bird_pos[2][1] + bird_shift_y
-
+    for bird in wingulls:
+        if bird == bird1:
+            bird.center_y = bird_pos[0][1] + bird_shift_y
+        elif bird == bird2:
+            bird.center_y = bird_pos[1][1] + bird_shift_y
+        else:
+            bird.center_y = bird_pos[2][1] + bird_shift_y
 
 def draw_title_plane():
     global plane_up
