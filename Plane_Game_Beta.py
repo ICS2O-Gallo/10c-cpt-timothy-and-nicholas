@@ -339,7 +339,6 @@ def draw_title_plane():
         plane_y += 2
     if plane_y > HEIGHT - 53:
         plane_up = False
-        plane_up = False
     elif plane_y < 53:
         plane_up = True
     plane.center_y = plane_y
