@@ -38,6 +38,7 @@ information_pressed = False
 yes_shop_reset_pressed = False
 no_shop_reset_pressed = False
 reset_confirmation = False
+draw_no_balance = False
 
 score_menu = False
 game = False
@@ -432,6 +433,7 @@ def draw_high_scores_button(x, y, width, height, colour_default, texture,
 def draw_home_button(x, y, width, height, colour_default, texture,
                      colour_hover, colour_press):
     global home_pressed, main_menu, score_menu, information, store_menu
+    global draw_no_balance
     if x + (width / 2) > mouse_x > x - (width / 2) and \
             y - (height / 2) < mouse_y < y + (height / 2) and \
             mouse_press:
@@ -450,6 +452,7 @@ def draw_home_button(x, y, width, height, colour_default, texture,
                 information = False
             elif store_menu:
                 store_menu = False
+                draw_no_balance = False
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         home_pressed = False
@@ -764,7 +767,7 @@ def shop_menu():
 
 def draw_buy_button(x, y, width, height, colour_default,
                     colour_hover, colour_press):
-    global buy, plane_speed, times_bought, coin_balance
+    global buy, plane_speed, times_bought, coin_balance, draw_no_balance
     if x + (width / 2) > mouse_x > x - (width / 2) and \
             y - (height / 2) < mouse_y < y + (height / 2) and \
             mouse_press:
@@ -792,10 +795,12 @@ def draw_buy_button(x, y, width, height, colour_default,
                     shop_data.write(f'{shop_data_temp[info]}\n')
                 shop_data.close()
             else:
-                print('Can not afford (You cannot have 0 balance!)')
+                draw_no_balance = True
     else:
         arcade.draw_rectangle_filled(x, y, width, height, colour_default)
         buy = False
+    if draw_no_balance:
+        arcade.draw_text('Can not afford (You cannot have 0 balance!)', 550, 150, arcade.color.RED, 24)
 
 
 def draw_shop_reset_button(x, y, width, height, colour_default, texture,
