@@ -363,86 +363,86 @@ def draw_title_plane():
         plane_up = True
 
 
-def draw_button(x, y, width, height, colour_default, texture, colour_hover,
+def draw_button(x, y, button_width, button_height, colour_default, texture, colour_hover,
                 colour_press):
     global game_pressed
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         game_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if game_pressed:
             game_start()
             game_pressed = False
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         game_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.9, height, texture)
+    arcade.draw_texture_rectangle(x, y, button_width * 0.9, button_height, texture)
 
 
-def draw_shop_button(x, y, width, height, colour_default, texture,
+def draw_shop_button(x, y, button_width, button_height, colour_default, texture,
                      colour_hover, colour_press):
     global shop_pressed, main_menu, store_menu
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         shop_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if shop_pressed:
             shop_pressed = False
             main_menu = False
             store_menu = True
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         shop_pressed = False
         store_menu = False
-    arcade.draw_texture_rectangle(x, y + 5, width, height * 1.15, texture)
+    arcade.draw_texture_rectangle(x, y + 5, button_width, button_height * 1.15, texture)
 
 
-def draw_high_scores_button(x, y, width, height, colour_default, texture,
+def draw_high_scores_button(x, y, button_width, button_height, colour_default, texture,
                             colour_hover, colour_press):
     global high_scores_pressed, score_menu, main_menu
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         high_scores_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if high_scores_pressed:
             score_menu = True
             main_menu = False
             high_scores_pressed = False
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         high_scores_pressed = False
         score_menu = False
-    arcade.draw_texture_rectangle(x, y - 3, width, height * 1.15, texture)
+    arcade.draw_texture_rectangle(x, y - 3, button_width, button_height * 1.15, texture)
 
 
-def draw_home_button(x, y, width, height, colour_default, texture,
+def draw_home_button(x, y, button_width, button_height, colour_default, texture,
                      colour_hover, colour_press):
     global home_pressed, main_menu, score_menu, information, store_menu
     global draw_no_balance
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         home_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if home_pressed:
             home_pressed = False
             main_menu = True
@@ -454,100 +454,100 @@ def draw_home_button(x, y, width, height, colour_default, texture,
                 store_menu = False
                 draw_no_balance = False
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         home_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+    arcade.draw_texture_rectangle(x, y, button_width * 0.95, button_height * 0.95, texture)
 
 
-def draw_reset_button(x, y, width, height, colour_default, texture,
+def draw_reset_button(x, y, button_width, button_height, colour_default, texture,
                       colour_hover, colour_press):
     global reset_pressed
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         reset_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if reset_pressed:
             reset_pressed = False
             scores_reset = open('playerdata/scores.txt', 'w')
             scores_reset.write("")
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         reset_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+    arcade.draw_texture_rectangle(x, y, button_width * 0.95, button_height * 0.95, texture)
 
 
-def draw_restart_button(x, y, width, height, colour_default, texture,
+def draw_restart_button(x, y, button_width, button_height, colour_default, texture,
                         colour_hover, colour_press):
     global restart_pressed, dead, game, game_frametime
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         restart_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if restart_pressed:
             restart_pressed = False
             dead = False
             game = True
             game_frametime = 0
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         restart_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+    arcade.draw_texture_rectangle(x, y, button_width * 0.95, button_height * 0.95, texture)
 
 
-def draw_game_main_menu_button(x, y, width, height, colour_default, texture,
+def draw_game_main_menu_button(x, y, button_width, button_height, colour_default, texture,
                                colour_hover, colour_press):
     global game_main_menu_pressed, main_menu, dead, game_frametime
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         game_main_menu_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if game_main_menu_pressed:
             game_main_menu_pressed = False
             main_menu = True
             dead = False
             game_frametime = 0
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         game_main_menu_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+    arcade.draw_texture_rectangle(x, y, button_width * 0.95, button_height * 0.95, texture)
 
 
-def draw_information_button(x, y, width, height, colour_default, texture,
+def draw_information_button(x, y, button_width, button_height, colour_default, texture,
                             colour_hover, colour_press):
     global information_pressed, information, main_menu
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         information_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if information_pressed:
             information_pressed = False
             information = True
             main_menu = False
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         information_pressed = False
         information = False
-    arcade.draw_texture_rectangle(x + 5, y, width * 0.8, height * 0.8, texture)
+    arcade.draw_texture_rectangle(x + 5, y, button_width * 0.8, button_height * 0.8, texture)
 
 
 def plane_game_draw():
@@ -576,7 +576,7 @@ def plane_game_logic():
 
 def scores_menu():
     score_title.draw()
-    height = 700
+    button_height = 700
     scores_read = open('playerdata/scores.txt', 'r')
     scores_save = []
 
@@ -594,8 +594,8 @@ def scores_menu():
             elif i == 2:
                 colour = arcade.color.BRONZE
             arcade.draw_text(f'[{i + 1}]: {str(scores_save[i])}',
-                             WIDTH / 2, height, colour, 24)
-            height -= 70
+                             WIDTH / 2, button_height, colour, 24)
+            button_height -= 70
     else:
         arcade.draw_text('No game progress is present', WIDTH / 2 - 180,
                          HEIGHT / 2, arcade.color.BLACK, 24)
@@ -765,18 +765,18 @@ def shop_menu():
     arcade.draw_text('Buy', WIDTH / 2 - 25, 235, arcade.color.BLACK, 28)
 
 
-def draw_buy_button(x, y, width, height, colour_default,
+def draw_buy_button(x, y, button_width, button_height, colour_default,
                     colour_hover, colour_press):
     global buy, plane_speed, times_bought, coin_balance, draw_no_balance
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         buy = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if buy:
             buy = False
             if coin_balance > cost:
@@ -797,30 +797,30 @@ def draw_buy_button(x, y, width, height, colour_default,
             else:
                 draw_no_balance = True
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         buy = False
     if draw_no_balance:
         arcade.draw_text('Can not afford (You cannot have 0 balance!)', 550, 150, arcade.color.RED, 24)
 
 
-def draw_shop_reset_button(x, y, width, height, colour_default, texture,
+def draw_shop_reset_button(x, y, button_width, button_height, colour_default, texture,
                            colour_hover, colour_press):
     global reset_pressed, reset_confirmation
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         reset_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if reset_pressed:
             reset_confirmation = True
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         reset_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+    arcade.draw_texture_rectangle(x, y, button_width * 0.95, button_height * 0.95, texture)
 
 
 def draw_reset_confirmation():
@@ -855,45 +855,45 @@ def reset_shop():
     shop_data.close()
 
 
-def yes_shop_reset_button(x, y, width, height, colour_default,
+def yes_shop_reset_button(x, y, button_width, button_height, colour_default,
                           colour_hover, colour_press, text):
     global yes_shop_reset_pressed, reset_confirmation
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         yes_shop_reset_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if yes_shop_reset_pressed:
             yes_shop_reset_pressed = False
             reset_shop()
             reset_confirmation = False
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         yes_shop_reset_pressed = False
     arcade.draw_text(text, x - 20, y - 10, arcade.color.FOREST_GREEN, 24)
 
 
-def no_shop_reset_button(x, y, width, height, colour_default,
+def no_shop_reset_button(x, y, button_width, button_height, colour_default,
                          colour_hover, colour_press, text):
     global no_shop_reset_pressed, reset_confirmation
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
+    if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_press)
         no_shop_reset_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
+    elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
+            y - (button_height / 2) < mouse_y < y + (button_height / 2) and not \
             mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_hover)
         if no_shop_reset_pressed:
             no_shop_reset_pressed = False
             reset_confirmation = False
     else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+        arcade.draw_rectangle_filled(x, y, button_width, button_height, colour_default)
         no_shop_reset_pressed = False
     arcade.draw_text(text, x - 20, y - 10, arcade.color.RED, 24)
 
