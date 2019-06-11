@@ -834,47 +834,37 @@ def draw_shop_reset_button(x, y, width, height, colour_default, texture,
 
 def reset_score_confirm():
     arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 400, 300, arcade.color.WHITE_SMOKE)
-    yes_confirm_scores_button(700, 370, 150, 50, arcade.color.BLIZZARD_BLUE, arcade.color.GREEN, arcade.color.RED)
-    yes_confirm_scores_button(900, 370, 150, 50, arcade.color.BLIZZARD_BLUE, arcade.color.GREEN, arcade.color.RED)
-   # arcade.draw_rectangle_filled(700, 370, 150, 50, arcade.color.BLIZZARD_BLUE)
-   # arcade.draw_rectangle_filled(900, 370, 150, 50, arcade.color.BLIZZARD_BLUE)
-    arcade.draw_text('Are you sure you want \n     '
-                     'to reset scores?', 660, 550, arcade.color.BLACK, 24)
-    arcade.draw_text('YES', 875, 357, arcade.color.BLACK, 24)
-    arcade.draw_text('NO', 675, 357, arcade.color.BLACK, 24)
+    yes_confirm_scores_button()
 
 
-def yes_confirm_scores_button(x, y, width, height, colour_default,
-                           colour_hover, colour_press):
-    global reset_pressed, plane_speed, times_bought, coin_balance
-    if x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and \
-            mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_press)
-        reset_pressed = True
-    elif x + (width / 2) > mouse_x > x - (width / 2) and \
-            y - (height / 2) < mouse_y < y + (height / 2) and not \
-            mouse_press:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_hover)
-        if reset_pressed:
-            reset_pressed = False
-            shop_data_temp = [7.0, 0.0, 0.0]
-            plane_speed = shop_data_temp[0]
-            times_bought = shop_data_temp[1]
-            coin_balance = shop_data_temp[2]
-            to_hash = f'{plane_speed + times_bought + coin_balance},' \
-                f' {secret_key}'
-            pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
-            shop_data_temp.append(pre_hash.hexdigest())
-            shop_data = open('playerdata/shop.txt', 'w')
-            for info in range(len(shop_data_temp)):
-                shop_data.write(f'{shop_data_temp[info]}\n')
-            shop_data.close()
-
-    else:
-        arcade.draw_rectangle_filled(x, y, width, height, colour_default)
+def yes_confirm_scores_button():
+    global reset_pressed, reset_score_prompt
+    if (50 <= mouse_x <= 100 and 835 <= mouse_y <= 885) and mouse_press:
+        arcade.draw_rectangle_filled(50, 100, 50, 50, arcade.color.PINK)
+        arcade.draw_rectangle_filled(WIDTH / 2, HEIGHT / 2, 400, 300, arcade.color.WHITE_SMOKE)
+        arcade.draw_rectangle_filled(700, 370, 150, 50, arcade.color.BLIZZARD_BLUE) # No
+        arcade.draw_rectangle_filled(900, 370, 150, 50, arcade.color.BLIZZARD_BLUE) # Yes
+        arcade.draw_text('Are you sure you want \n     '
+                         'to reset scores?', 660, 550, arcade.color.BLACK, 24)
+        arcade.draw_text('YES', 875, 357, arcade.color.BLACK, 24)
+        arcade.draw_text('NO', 675, 357, arcade.color.BLACK, 24)
+        reset_score_prompt = True
+    elif (50 <= mouse_x <= 100 and 835 <= mouse_y <= 885) and not mouse_press:
+        if (825 <= mouse_x <= 975 and 345 <= mouse_y <= 395) and not mouse_press:
+            if reset_pressed and reset_score_prompt:
+                scores_reset = open('playerdata/scores.txt', 'w')
+                scores_reset.write("")
+                scores_reset.close()
+                reset_pressed = True
+        elif (625 <= mouse_x <= 775 and 345 <= mouse_y <= 395):
+            if reset_pressed and reset_score_prompt:
+                scores_menu()
+        reset_score_prompt = False
         reset_pressed = False
-    arcade.draw_texture_rectangle(x, y, width * 0.95, height * 0.95, texture)
+    else:
+        arcade.draw_rectangle_filled(50, 835, 50, 50, arcade.color.RED)
+        reset_pressed = False
+        reset_score_prompt = False
 
 
 if __name__ == '__main__':
