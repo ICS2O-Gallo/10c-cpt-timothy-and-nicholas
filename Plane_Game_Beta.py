@@ -1,11 +1,11 @@
 import arcade
-import random
 import hashlib
+import random
+
 
 # Global Variables ------------------------------------------------------------
 WIDTH = 1600
 HEIGHT = 960
-
 bird_pos = [
     [1200, 800],
     [1400, 720],
@@ -77,7 +77,9 @@ else:
     plane_speed = shop_data_temp[0]
     times_bought = shop_data_temp[1]
     coin_balance = shop_data_temp[2]
-    to_hash = f'{plane_speed + times_bought + coin_balance},' f' {secret_key}'
+    # Instead of using str(), using an f string can sneakily hide the comma in
+    # the string, preventing anyone sneaky from too easily cheating.
+    to_hash = f'{plane_speed + times_bought + coin_balance}, {secret_key}'
     pre_hash = hashlib.sha512(to_hash.encode('utf-8'))
     shop_data_temp.append(pre_hash.hexdigest())
     shop_data = open('playerdata/shop.txt', 'w')
@@ -590,7 +592,7 @@ def plane_game_draw():
     for x_star, y_star in zip(star_x_positions, star_y_positions):
         arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
     for x_coin, y_coin in zip(coin_x_positions, coin_y_positions):
-        draw_coin = arcade.Sprite('assets/sprites/coin.tiff', 25 / 580, 0, 0,
+        draw_coin = arcade.Sprite('assets/sprites/coin.tiff', 26 / 580, 0, 0,
                                   580, 580, x_coin, y_coin)
         draw_coin.draw()
     plane_movement()
@@ -647,9 +649,9 @@ def coin_star_drawing():
             coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
         for star in range(len(star_x_positions)):
             if (star_y_positions[star] + 13 >= coin_y_positions[x_range] >=
-                star_y_positions[star] - 13) and (
-                    star_x_positions[star] + 13 >= coin_x_positions[x_range] >=
-                    star_x_positions[star] - 13):
+                    star_y_positions[star] - 13) and \
+                    (star_x_positions[star] + 13 >=
+                     coin_x_positions[x_range] >= star_x_positions[star] - 13):
                 coin_y_positions[x_range] = random.randrange(0, HEIGHT)
                 coin_x_positions[x_range] = random.randrange(WIDTH, WIDTH * 2)
 
@@ -702,8 +704,8 @@ def plane_collision():
                 star_y_positions[detect] - 50 <= game_y_plane <=
                 star_y_positions[detect] + 50)) or \
                 ((300 >= star_x_positions[detect] >= 285) and (
-                        star_y_positions[detect] - 22 <= game_y_plane <=
-                        star_y_positions[detect] + 22)):
+                    star_y_positions[detect] - 22 <= game_y_plane <=
+                    star_y_positions[detect] + 22)):
             reset_stats()
 
 
