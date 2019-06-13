@@ -505,7 +505,8 @@ def draw_reset_button(x, y, button_width, button_height, colour_default,
 
 def draw_restart_button(x, y, button_width, button_height, colour_default,
                         texture, colour_hover, colour_press):
-    global restart_pressed, dead, game, game_frametime
+    global restart_pressed, dead, game, game_frametime, coin_y_positions
+    global star_y_positions, star_x_positions, coin_x_positions
     if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
             y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
@@ -522,6 +523,20 @@ def draw_restart_button(x, y, button_width, button_height, colour_default,
             dead = False
             game = True
             game_frametime = 0
+            star_x_positions = []
+            star_y_positions = []
+            coin_x_positions = []
+            coin_y_positions = []
+            for i in range(10):
+                game_x = random.randrange(WIDTH / 2, WIDTH * 2)
+                game_y = random.randrange(HEIGHT)
+                star_x_positions.append(game_x)
+                star_y_positions.append(game_y)
+            for i in range(5):
+                coin_x = random.randrange(WIDTH / 2, WIDTH * 2)
+                coin_y = random.randrange(HEIGHT)
+                coin_x_positions.append(coin_x)
+                coin_y_positions.append(coin_y)
     else:
         arcade.draw_rectangle_filled(x, y, button_width, button_height,
                                      colour_default)
@@ -729,6 +744,8 @@ def game_over_background():
 
 
 def game_over():
+    global star_y_positions, star_x_positions, coin_x_positions
+    global coin_y_positions
     game_over_background()
     gameover.draw()
     draw_restart_button(WIDTH / 2, 500, 100, 100, arcade.color.ORANGE, reset,
@@ -747,6 +764,20 @@ def game_over():
     for i in range(len(shop_data_temp)):
         shop_data.write(f'{shop_data_temp[i]}\n')
     shop_data.close()
+    star_x_positions = []
+    star_y_positions = []
+    coin_x_positions = []
+    coin_y_positions = []
+    for i in range(10):
+        game_x = random.randrange(WIDTH / 2, WIDTH * 2)
+        game_y = random.randrange(HEIGHT)
+        star_x_positions.append(game_x)
+        star_y_positions.append(game_y)
+    for i in range(5):
+        coin_x = random.randrange(WIDTH / 2, WIDTH * 2)
+        coin_y = random.randrange(HEIGHT)
+        coin_x_positions.append(coin_x)
+        coin_y_positions.append(coin_y)
 
 
 def pause_menu():
