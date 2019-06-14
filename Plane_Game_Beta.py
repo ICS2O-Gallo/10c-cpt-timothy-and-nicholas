@@ -807,7 +807,7 @@ def shop_menu():
     arcade.draw_rectangle_filled(WIDTH - 150, HEIGHT - 75, 175, 60,
                                  arcade.color.LIGHT_GRAY)
     coin.draw()
-    arcade.draw_text(str(coin_balance), WIDTH - 160, HEIGHT - 88,
+    arcade.draw_text(str(f'{coin_balance:.2f}'), WIDTH - 160, HEIGHT - 88,
                      arcade.color.BLACK, 24, font_name='arial', bold=True)
     birch_colour = [255, 235, 208]
     light_wood_colour = [168, 101, 9]
