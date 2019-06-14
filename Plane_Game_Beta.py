@@ -605,7 +605,7 @@ def plane_game_draw():
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20,
                      arcade.color.WHITE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
-        arcade.draw_circle_filled(x_star, y_star, 2, arcade.color.WHITE)
+        arcade.draw_circle_filled(x_star, y_star, 3, arcade.color.WHITE)
     for x_coin, y_coin in zip(coin_x_positions, coin_y_positions):
         draw_coin = arcade.Sprite('assets/sprites/coin.tiff', 26 / 580, 0, 0,
                                   580, 580, x_coin, y_coin)
