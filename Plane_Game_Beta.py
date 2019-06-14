@@ -34,7 +34,7 @@ game_main_menu_pressed = False
 home_pressed = False
 reset_pressed = True
 restart_pressed = False
-information_pressed = False
+instructions_pressed = False
 yes_shop_reset_pressed = False
 no_shop_reset_pressed = False
 reset_confirmation = False
@@ -46,7 +46,7 @@ main_menu = True
 dead = False
 paused = False
 times_paused = 0
-information = False
+instruction = False
 store_menu = False
 buy = False
 cost = 10
@@ -179,8 +179,8 @@ bird3 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200,
                       bird_pos[2][0], bird_pos[2][1] + bird_shift_y)
 wingulls = [bird1, bird2, bird3]
 
-info_text = arcade.Sprite('assets/text/information.png', 1, 0, 0, 1418, 985,
-                          WIDTH / 2, HEIGHT / 2 + 100)
+instruction_text = arcade.Sprite('assets/text/information.png', 1, 0, 0,
+                                 1418, 985, WIDTH / 2, HEIGHT / 2 + 100)
 
 shop_title = arcade.Sprite('assets/text/shoptitle.tiff', 1, 0, 0, 378, 176,
                            WIDTH / 2, HEIGHT - 125)
@@ -212,7 +212,7 @@ def setup():
 
 def update(delta_time):
     global frame_time
-    if main_menu or score_menu or information or store_menu:
+    if main_menu or score_menu or instruction or store_menu:
         frame_time += 1
     elif game:
         plane_game_logic()
@@ -233,7 +233,7 @@ def on_draw():
         draw_high_scores_button(535, 360, 150, 70, arcade.color.BLACK,
                                 highscores, arcade.color.GRAY,
                                 arcade.color.LIGHT_GRAY)
-        draw_information_button(813, 260, 300, 70,
+        draw_instruction_button(813, 260, 300, 70,
                                 arcade.color.GOLDEN_POPPY, instructions,
                                 arcade.color.GOLD, arcade.color.ORANGE_PEEL)
         title_text.draw()
@@ -249,10 +249,10 @@ def on_draw():
         pause_menu()
     elif game:
         plane_game_draw()
-    elif information:
+    elif instruction:
         draw_background(0.5)
         draw_title_plane()
-        info_menu()
+        instruction_menu()
         draw_home_button(50, HEIGHT - 50, 50, 50, arcade.color.WHITE, home,
                          arcade.color.LIGHT_GRAY, arcade.color.DARK_BLUE_GRAY)
     elif store_menu:
@@ -446,7 +446,7 @@ def draw_high_scores_button(x, y, button_width, button_height, colour_default,
 
 def draw_home_button(x, y, button_width, button_height, colour_default,
                      texture, colour_hover, colour_press):
-    global home_pressed, main_menu, score_menu, information, store_menu
+    global home_pressed, main_menu, score_menu, instruction, store_menu
     global draw_no_balance
     if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
             y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
@@ -464,8 +464,8 @@ def draw_home_button(x, y, button_width, button_height, colour_default,
             main_menu = True
             if score_menu:
                 score_menu = False
-            elif information:
-                information = False
+            elif instruction:
+                instruction = False
             elif store_menu:
                 store_menu = False
                 draw_no_balance = False
@@ -573,29 +573,29 @@ def draw_game_main_menu_button(x, y, button_width, button_height,
                                   button_height * 0.95, texture)
 
 
-def draw_information_button(x, y, button_width, button_height, colour_default,
+def draw_instruction_button(x, y, button_width, button_height, colour_default,
                             texture, colour_hover, colour_press):
-    global information_pressed, information, main_menu
+    global instruction_pressed, instruction, main_menu
     if x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
             y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             mouse_press:
         arcade.draw_rectangle_filled(x, y, button_width, button_height,
                                      colour_press)
-        information_pressed = True
+        instruction_pressed = True
     elif x + (button_width / 2) > mouse_x > x - (button_width / 2) and \
             y - (button_height / 2) < mouse_y < y + (button_height / 2) and \
             not mouse_press:
         arcade.draw_rectangle_filled(x, y, button_width, button_height,
                                      colour_hover)
-        if information_pressed:
-            information_pressed = False
-            information = True
+        if instruction_pressed:
+            instruction_pressed = False
+            instruction = True
             main_menu = False
     else:
         arcade.draw_rectangle_filled(x, y, button_width, button_height,
                                      colour_default)
-        information_pressed = False
-        information = False
+        instruction_pressed = False
+        instruction = False
     arcade.draw_texture_rectangle(x + 5, y, button_width * 0.8,
                                   button_height * 0.8, texture)
 
@@ -794,8 +794,8 @@ def pause_menu():
     pause_background.draw()
 
 
-def info_menu():
-    info_text.draw()
+def instruction_menu():
+    instruction_text.draw()
 
 
 def shop_menu():
