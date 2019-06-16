@@ -71,7 +71,7 @@ print(proposed_hash)
 if proposed_hash == actual_hash:
     print('SHA-512 Verified')
 else:
-    print('Corrupt or illegitimate')
+    print('Corrupt or illegitimate. Game progress has been reset.')
     reset_pressed = False
     shop_data_temp = [7.0, 0.0, 0.0]
     plane_speed = shop_data_temp[0]
