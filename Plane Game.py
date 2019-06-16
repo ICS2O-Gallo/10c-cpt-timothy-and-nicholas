@@ -194,13 +194,13 @@ plane_part = arcade.Sprite('assets/sprites/elevator.png', 0.5, 0, 0, 800, 516,
 draw_coin = []
 for x_coin, y_coin in zip(coin_x_positions, coin_y_positions):
     draw_coin.append(arcade.Sprite('assets/sprites/coin.tiff', 26 / 580, 0, 0,
-                     580, 580, x_coin, y_coin))
+                                   580, 580, x_coin, y_coin))
 # -----------------------------------------------------------------------------
 
 
 def setup():
     arcade.open_window(WIDTH, HEIGHT, 'Plane Game')
-    arcade.set_background_color(arcade.color.WHITE)
+    arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     arcade.schedule(update, 1 / 60)
 
     # Override arcade window methods
@@ -606,7 +606,6 @@ def draw_instruction_button(x, y, button_width, button_height, colour_default,
 
 
 def plane_game_draw():
-    arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     arcade.draw_text(str(game_frametime), WIDTH - 50, HEIGHT - 20,
                      arcade.color.WHITE)
     for x_star, y_star in zip(star_x_positions, star_y_positions):
