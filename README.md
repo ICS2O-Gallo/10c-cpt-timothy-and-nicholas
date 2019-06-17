@@ -34,7 +34,7 @@ Plane game can be controlled with only two buttons.
 • Pressing `SPACE` while playing the game will pause the game. This can only be done **twice** per round.
 
 ## Menus
-When entering the game, three buttons can be found. From left to right, these three buttons are: leaderboards, play, and shop.
+When entering the game, four buttons can be found. From left to right, these three buttons are: leaderboards, play, instructions, and shop.
 Clicking on any of these buttons leads to their respective menus. 
 
 • **Leaderboards:** The furthest left, this menu will show up to ten of a player's highest scores. Players can compete by comparing their highest scores with each other.
@@ -42,7 +42,9 @@ Clicking on any of these buttons leads to their respective menus.
   • A player may also clear their high scores list here by clicking on the red reset button.
   
 • **Play:** Located in the middle, pressing this button launches Plane Game. After clicking on this button, the user should begin controlling their plane with the keyboard. 
-  • A buffer-zone equal to half of `WIDTH` is given to facilitate this transition. 
+  • A buffer-zone equal to half of `WIDTH` is given to facilitate this transition, giving the player more time to react. 
+  
+• **Instructions:** Anyone requiring reminders of the game's features of any further clarification on the game's mechanics can navigate to this screen.
 
 • **Shop:** Furthest right, pressing this button will bring up the shop where upgrades can be purchased.
   • Player balance will also be shown here on the top right
