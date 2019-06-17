@@ -1,6 +1,6 @@
-import arcade
 import hashlib
 import random
+import arcade
 
 
 # Global Variables ------------------------------------------------------------
@@ -177,6 +177,7 @@ bird2 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200,
 
 bird3 = arcade.Sprite('assets/sprites/bird.png', 1 / 12, 0, 0, 1200, 1200,
                       bird_pos[2][0], bird_pos[2][1] + bird_shift_y)
+
 wingulls = [bird1, bird2, bird3]
 
 instruction_text = arcade.Sprite('assets/text/information.png', 1, 0, 0,
@@ -192,6 +193,7 @@ plane_part = arcade.Sprite('assets/sprites/elevator.png', 0.5, 0, 0, 800, 516,
                            WIDTH / 2, HEIGHT / 2 + 75)
 
 draw_coin = []
+
 for x_coin, y_coin in zip(coin_x_positions, coin_y_positions):
     draw_coin.append(arcade.Sprite('assets/sprites/coin.tiff', 26 / 580, 0, 0,
                                    580, 580, x_coin, y_coin))
