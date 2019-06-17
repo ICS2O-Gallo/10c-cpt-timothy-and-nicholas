@@ -42,6 +42,7 @@ Clicking on any of these buttons leads to their respective menus.
   • A player may also clear their high scores list here by clicking on the red reset button.
   
 • **Play:** Located in the middle, pressing this button launches Plane Game. After clicking on this button, the user should begin controlling their plane with the keyboard. 
+
   • A buffer-zone equal to half of `WIDTH` is given to facilitate this transition, giving the player more time to react. 
   
 • **Instructions:** Anyone requiring reminders of the game's features of any further clarification on the game's mechanics can navigate to this screen.
