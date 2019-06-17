@@ -7,7 +7,7 @@ ICS 2O1 CPT - Nicholas Poon and Timothy Zheng
 
 # Installation Instructions
 
-### Plane Game requires the following packages:
+### Plane Game requires the following package:
 
 • **PyArcade**: https://pypi.org/project/arcade/ 
 
