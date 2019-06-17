@@ -469,13 +469,10 @@ def draw_home_button(x, y, button_width, button_height, colour_default,
         if home_pressed:
             home_pressed = False
             main_menu = True
-            if score_menu:
-                score_menu = False
-            elif instruction:
-                instruction = False
-            elif store_menu:
-                store_menu = False
-                draw_no_balance = False
+            score_menu = False
+            instruction = False
+            store_menu = False
+            draw_no_balance = False
     else:
         arcade.draw_rectangle_filled(x, y, button_width, button_height,
                                      colour_default)
