@@ -877,6 +877,7 @@ def draw_buy_button(x, y, button_width, button_height, colour_default,
     if draw_no_balance:
         arcade.draw_text('Can not afford (You cannot have 0 balance!)', 550,
                          150, arcade.color.RED, 24)
+        # 'You cannot have 0 balance' prevents weird rounding edge-cases
 
 
 def draw_shop_reset_button(x, y, button_width, button_height, colour_default,
